@@ -145,88 +145,69 @@
       </ul>
     </div>
     <div>
-      <h2>Tested and rejected</h2>
+      <h2>Encoders evaluated — identical scoring code</h2>
       <div class="wrap">
       <table>
-        <tr><th>Tried</th><th>Outcome</th></tr>
-        <tr><td>Half-max boundary refinement</td><td class="down">D3 16.9 → 8.0</td></tr>
-        <tr><td>Adaptive per-video D2 thresholds</td><td class="down">D2 14.0 → 5.3</td></tr>
-        <tr><td>Onset alone on D2</td><td class="down">14.0 → 12.6</td></tr>
-        <tr><td>Sharper prompts, worst class</td><td class="down">9 → 11 predictions</td></tr>
-        <tr><td>Cosmos-Embed1 (video-native)</td><td class="down">37.5% vs 45.8%</td></tr>
-        <tr><td>Multi-scale head, 4 windows</td><td class="down">no gain</td></tr>
-        <tr><td>Onset instead of head on D2</td><td class="down">14.0 → 12.6</td></tr>
-        <tr><td>SigLIP2-so400m/384</td><td class="flat">54.2% but 2× slower</td></tr>
+        <tr><th>Backbone</th><th>Dim</th><th>D1</th></tr>
+        <tr><td><b>SigLIP2-base/224</b> <span class="flat">shipped</span></td><td class="num">768</td><td class="num">45.8%</td></tr>
+        <tr><td>SigLIP2-so400m/384</td><td class="num">1152</td><td class="num up">54.2%</td></tr>
+        <tr><td>Meta PE-Core-L14-336</td><td class="num">1024</td><td class="num flat">45.8%</td></tr>
+        <tr><td>NVIDIA Cosmos-Embed1 <span class="flat">video-native</span></td><td class="num">768</td><td class="num down">37.5%</td></tr>
       </table>
       </div>
-      <p class="sub" style="margin-top:8px">Six measured negatives. Every one cost a run on the live scorer, and every one is now closed.</p>
-    </div>
+      <p class="sub" style="margin-top:7px"><b>We shipped the smallest.</b> so400m led zero-shot by 8.4 pts, but a trained probe took base to <b>64.1%</b> — past so400m — at half the cost. <b>A video-native encoder scored worst</b>: eight frames embedded jointly still lost to a still-image model, so the temporal gap is real but unresolved.</p>
+
+      <h2>Also tried, also rejected</h2>
+      <div class="wrap">
+      <table>
+        <tr><td>Half-max boundary refinement</td><td class="down">D3 16.9 → 8.0</td></tr>
+        <tr><td>Adaptive per-video D2 thresholds</td><td class="down">D2 14.0 → 5.3</td></tr>
+        <tr><td>Onset instead of head on D2</td><td class="down">14.0 → 12.6</td></tr>
+        <tr><td>Multi-scale head, 4 windows</td><td class="down">no gain</td></tr>
+        <tr><td>Sharper prompts, worst class</td><td class="down">9 → 11 predictions</td></tr>
+      </table>
+      </div>
   </div>
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Slide 2 · Experiments &amp; what we learned</p>
-  <h1>Nine full runs. Every gain was routing; every loss was tuning.</h1>
-  <p class="sub">Each row is one complete pipeline run over all 28 videos, scored live. Nothing estimated, nothing assembled.</p>
+  <p class="eyebrow">Slide 2 · What we tried</p>
+  <h1>Nine full runs, every one scored on the live benchmark</h1>
+  <p class="sub">Each row is one complete pipeline run over all 28 videos. Nothing estimated, nothing assembled from parts.</p>
 
-  <div class="cols" style="grid-template-columns:1.25fr 1fr">
+  <h2 style="margin-top:22px">Every submission, and what it scored</h2>
+  <div class="wrap">
+  <table>
+    <tr><th>#</th><th>What we changed</th><th>D1 /25</th><th>D2 /35</th><th>D3 /40</th><th>Marks</th></tr>
+    <tr><td>1</td><td>Baseline — probe · temporal head · onset</td><td class="num">11.6</td><td class="num">14.0</td><td class="num">16.9</td><td class="num">42.5</td></tr>
+    <tr><td>2</td><td>“normal” must win by a margin, else name the anomaly</td><td class="num up">14.4</td><td class="num">14.0</td><td class="num">16.9</td><td class="num up">45.3</td></tr>
+    <tr><td>3</td><td>Half-max boundary refinement</td><td class="num">14.4</td><td class="num">14.0</td><td class="num down">8.0</td><td class="num down">36.4</td></tr>
+    <tr><td>4</td><td>Onset instead of the head on D2</td><td class="num">14.4</td><td class="num down">12.6</td><td class="num">16.9</td><td class="num down">43.9</td></tr>
+    <tr><td>5</td><td>Adaptive per-video D2 thresholds</td><td class="num">14.4</td><td class="num down">5.3</td><td class="num">16.9</td><td class="num down">36.6</td></tr>
+    <tr><td>6</td><td>Tighter D2 hysteresis</td><td class="num">14.4</td><td class="num">14.0</td><td class="num">16.9</td><td class="num">45.3</td></tr>
+    <tr><td>7</td><td><b>D2 cascade — head decides whether, onset decides when</b></td><td class="num">14.4</td><td class="num up">21.3</td><td class="num">16.9</td><td class="num up">52.6</td></tr>
+    <tr><td>8</td><td><b>Keep 2 intervals per long video, not 3</b></td><td class="num">14.4</td><td class="num">21.3</td><td class="num up">17.9</td><td class="num up">53.6</td></tr>
+    <tr><td>9</td><td><b>Prompt bank breaks the probe's ties</b></td><td class="num up">16.0</td><td class="num">21.3</td><td class="num">17.9</td><td class="num up"><b>55.3</b></td></tr>
+  </table>
+  </div>
+  <p class="sub" style="margin-top:8px">Plus a reasoning bonus of +3.5/5 throughout — <b>58.8 total</b>.</p>
+
+  <div class="cols" style="margin-top:24px">
     <div>
-      <h2>Every submission, measured</h2>
-      <div class="wrap">
-      <table>
-        <tr><th>#</th><th>What changed</th><th>D1</th><th>D2</th><th>D3</th><th>Marks</th></tr>
-        <tr><td>1</td><td>Baseline: probe · head · onset</td><td class="num">11.6</td><td class="num">14.0</td><td class="num">16.9</td><td class="num">42.5</td></tr>
-        <tr><td>2</td><td><b>“normal” must win by a margin</b></td><td class="num up">14.4</td><td class="num">14.0</td><td class="num">16.9</td><td class="num up">45.3</td></tr>
-        <tr><td>3</td><td>Half-max boundary refinement</td><td class="num">14.4</td><td class="num">14.0</td><td class="num down">8.0</td><td class="num down">36.4</td></tr>
-        <tr><td>4</td><td>Onset instead of head on D2</td><td class="num">14.4</td><td class="num down">12.6</td><td class="num">16.9</td><td class="num down">43.9</td></tr>
-        <tr><td>5</td><td>Adaptive per-video D2 thresholds</td><td class="num">14.4</td><td class="num down">5.3</td><td class="num">16.9</td><td class="num down">36.6</td></tr>
-        <tr><td>6</td><td>Tighter D2 hysteresis</td><td class="num">14.4</td><td class="num">14.0</td><td class="num">16.9</td><td class="num">45.3</td></tr>
-        <tr><td>7</td><td><b>D2 cascade: whether → when</b></td><td class="num">14.4</td><td class="num up">21.3</td><td class="num">16.9</td><td class="num up">52.6</td></tr>
-        <tr><td>8</td><td><b>Keep 2 D3 intervals, not 3</b></td><td class="num">14.4</td><td class="num">21.3</td><td class="num up">17.9</td><td class="num up">53.6</td></tr>
-        <tr><td>9</td><td><b>Prompt bank breaks probe ties</b></td><td class="num up">16.0</td><td class="num">21.3</td><td class="num">17.9</td><td class="num up"><b>55.3</b></td></tr>
-      </table>
-      </div>
-      <p class="sub" style="margin-top:6px">+3.5/5 reasoning bonus throughout — <b>58.8 total</b>.
-      Routing changes: <span class="up">+2.8, +7.3, +1.0, +1.7</span>. Fitted parameters: <span class="down">−8.9, −8.7, −1.4</span>.</p>
-
-      <h2>The two failures that taught us the most</h2>
+      <h2>What worked</h2>
       <ul>
-        <li><b>Run 3 (D3 halved).</b> We shrank intervals to their peak width. D3's real events run 38–125 s, so a tidy span misses them entirely. Lesson: cap the <i>count</i>, don't trim the <i>extent</i> — which became run 8.</li>
-        <li><b>Run 5 (D2 collapsed).</b> Forcing every video to fire cost 8.7 ≈ exactly one video (8.75). That accident revealed run 7: the head's <i>silence</i> on normal footage was worth more than its localisation.</li>
+        <li><b>Run 7, the biggest single gain.</b> The head matched 0 of 12 events but correctly stayed silent on the one normal video; the onset localised well but fired on it. Chaining them collected both — <b>14.0 → 21.3</b>.</li>
+        <li><b>Runs 2 and 9, both on D1.</b> One clip read <code>normal 0.132</code> vs <code>smoke 0.131</code>. Letting a second component break ties like that took D1 <b>46.4% → 64.1%</b>.</li>
       </ul>
     </div>
-
     <div>
-      <h2>The cascade, from runs 4–6</h2>
-      <div class="wrap">
-      <table>
-        <tr><th></th><th>normal video</th><th>3 anomalous</th><th>D2</th></tr>
-        <tr><td>head only</td><td class="num up">8.75</td><td class="num">5.25</td><td class="num">14.0</td></tr>
-        <tr><td>onset only</td><td class="num down">0</td><td class="num up">12.6</td><td class="num">12.6</td></tr>
-        <tr><td><b>cascade</b></td><td class="num up">8.75</td><td class="num up">12.6</td><td class="num up"><b>21.3</b></td></tr>
-      </table>
-      </div>
-      <p class="sub" style="margin-top:6px">Neither component could do both jobs. Chaining them collects both.</p>
-
-      <h2>What actually found the bugs</h2>
+      <h2>What didn't</h2>
       <ul>
-        <li><b>Looking at the frames.</b> One labelled contact sheet of every predicted event. Ten minutes, four real defects.</li>
-        <li>A clip called <code>wrong_way_driving</code> ×6 — it was queued trucks on the far carriageway.</li>
-        <li>A dashcam <b>crash compilation</b> typed <code>stalled_vehicle</code> — watermark visible in shot.</li>
-        <li>Run 9 then flipped <code>fire</code>↔<code>smoke</code> on <b>exactly the two clips we'd flagged by eye</b>, from the prompt bank alone.</li>
+        <li><b>Run 3 halved D3.</b> We tightened intervals to their peak width; the real events run 38–125 s, so tidy spans miss them under tIoU 0.5.</li>
+        <li><b>Run 5 cost a whole video.</b> Forcing every clip to fire lost 8.7 marks — almost exactly the 8.75 of the one normal video.</li>
       </ul>
-
-      <h2>Local validation lied — five times</h2>
-      <div class="wrap">
-      <table>
-        <tr><th>Signal</th><th>Said</th><th>Truth</th></tr>
-        <tr><td>Marks formula</td><td class="num">29.9</td><td class="num">51.9</td></tr>
-        <tr><td>Train accuracy</td><td class="num up">+27</td><td class="num down">−24</td></tr>
-        <tr><td>Val IoU 0.66→0.86</td><td class="num up">better</td><td class="num down">worse</td></tr>
-        <tr><td>Cross-val 33→58%</td><td class="num up">better</td><td class="num flat">±0</td></tr>
-      </table>
-      </div>
-      <p class="sub" style="margin-top:6px">Ground truth was revised mid-event; every cached label was stale. Pixels don't go stale.</p>
     </div>
   </div>
+
+  <p class="sub" style="margin-top:20px"><b>The pattern:</b> every gain came from a routing rule — which component may speak, and when. Every loss came from tuning a number to the data. The three winning changes are about 30 lines of code, no new weights.</p>
 </section>

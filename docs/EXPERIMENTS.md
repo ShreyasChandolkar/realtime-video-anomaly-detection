@@ -40,13 +40,92 @@ on the three anomalous videos where the head earns ~5.25; run 5 showed the
 normal video alone is worth 8.75. Neither component could have both. Chaining
 them collects both — 21.3.
 
-## Tried, measured, not shipped
+## Encoders: four backbones, evaluated head to head
+
+Everything downstream reads frozen features, so the encoder is the one choice
+that bounds every tier at once. We cached features for four and compared them on
+Difficulty 1 with **identical scoring code** — same prompt bank, same margin
+rule, same thresholds — so the only variable is the backbone.
+
+| Encoder | Dim | What it is | D1 |
+|---|---|---|---|
+| **SigLIP2-base-patch16-224** | 768 | shipped. Image–text contrastive, 224 px | 45.8% |
+| SigLIP2-so400m-patch14-384 | 1152 | same family, ~4× the compute, 384 px | **54.2%** |
+| Meta **PE-Core-L14-336** | 1024 | Perception Encoder, trained for perception rather than captioning | 45.8% |
+| NVIDIA **Cosmos-Embed1-448p** | 768 | **video-native** — 8 frames jointly through a ViT + QFormer | **37.5%** |
+
+### Why we shipped the smallest one
+
+so400m won zero-shot by 8.4 points, and we still did not ship it. Two reasons,
+both measured:
+
+- Once a **trained probe** replaced zero-shot prompting, base reached 57.4% and
+  then 64.1% — past so400m's zero-shot number. The probe recovered more than the
+  bigger encoder did.
+- so400m runs at 384 px against base's 224 and is roughly 2× slower per frame.
+  The whole 28-video pack finishes in 125 s on base; the latency bonus and the
+  real-time requirement both point the same way.
+
+The blocking issue was practical: so400m features were only ever cached for the
+old public split, never for train, so there was no data to fit a so400m probe on
+without a long re-extraction. That is the first thing we would revisit.
+
+### Meta Perception Encoder (PE-Core-L14-336)
+
+Chosen because it is trained for perception tasks rather than caption matching,
+which is closer to what we need than a captioning-aligned space. It scored
+**identically to base** (45.8%) at ~2× the dimensionality and cost. No signal
+either way — so no reason to carry the extra compute.
+
+### NVIDIA Cosmos-Embed1 — the interesting failure
+
+This was the experiment we most expected to win, and the one that argues hardest
+about the problem's nature.
+
+**The reasoning:** every other encoder here is an *image* model. It sees one
+frame and structurally cannot represent duration. A single frame of someone
+loitering *is* a normal frame — which is exactly why loitering, fighting,
+vehicle-blocking and stalled-vehicle all sat near zero recall. Cosmos-Embed1
+embeds **eight frames jointly** through a ViT and a QFormer into a space shared
+with text, so a window carries motion and "a person stays put while the scene
+moves on" becomes expressible.
+
+**How we wired it:** slid an 8-frame window across the video at 2 Hz with
+stride 2 and kept one embedding per window, giving the same per-timestep stream
+the rest of the pipeline already consumes — the scorer, hysteresis and
+submission code needed no changes. Its prompt bank was re-encoded in Cosmos's
+own text space.
+
+**What happened:** 37.5%, clearly *worse* than a still-image encoder.
+
+**What went wrong along the way**, since it cost real time:
+- The processor emits float32 pixel values while the checkpoint config pins
+  bfloat16, so the dtype had to be overridden explicitly.
+- The processor wants BTCHW uint8; our sampler produces HWC.
+- Batch size had to come down to avoid OOM at 448 px.
+- We chased a dtype error for about 30 minutes that did not exist — the script
+  on the GPU box was a **stale copy that had never synced**. Confirmed by md5.
+  Since then every remote run is checksummed rather than assumed.
+
+**What it means:** the temporal-representation gap is real, but a video-native
+encoder did not close it — so it is unresolved rather than diagnosed. Our best
+current answer to duration is not the encoder at all, it is the temporal head
+plus the causal baseline, and the head turned out to be useful only as a
+video-level gate.
+
+### A measurement worth keeping: the modality gap
+
+Mean cosine similarity between a frame and its *correct* class prompt was only
+**0.126** — image and text embeddings occupy visibly different regions even in a
+jointly-trained space. Fitting an orthogonal Procrustes rotation from image space
+to text space raised it to **0.893**. That is why the pipeline scores a *margin
+between prompts* rather than an absolute similarity: absolute cosines are
+dominated by the gap, differences between two prompts are not.
+
+## Other ideas tried, measured, not shipped
 
 | Idea | Result |
 |---|---|
-| SigLIP2-so400m/384 encoder | 54.2% D1 vs base 45.8%, but 2× slower — and the trained probe beat both |
-| PE-Core-L14-336 | 45.8% — no gain over base |
-| Cosmos-Embed1-448p (video-native, 8-frame windows) | **37.5%** — a video encoder scored *worse* than a still-image one |
 | Multi-scale temporal head (windows 2 s / 4 s / 16 s / 60 s) | val IoU 0.643 vs 0.664; still saturated on long video |
 | Temporal head applied to D3 | Emitted a 360 s span on a 360 s clip |
 | Sharper prompts for `road_spill_or_debris` | Predictions went **up** 9 → 11; the class has no distinctive frame-level signature |
