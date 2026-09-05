@@ -63,6 +63,59 @@ def explain(cls: str, start, end, observation: str | None) -> str:
             f"{evidence}, which the detector scores as {humanise(cls)}.")
 
 
+def explain_measured(cls, start, end, times, arr, names, cm) -> str:
+    """Explain an event from what the run actually measured, not from its label.
+
+    The template above states what the class *means* - true of the class, but
+    not evidence about this video. Everything below is read off this run: where
+    the response peaked, how far it rose above the baseline this camera set for
+    itself, and how far it led the next-best class. If the detector fired on
+    thin evidence the sentence says so, which is the point of a reasoning score.
+    """
+    import numpy as np
+
+    ev = EVIDENCE.get(cls, f"the scene matches {humanise(cls)}")
+    if start is None or end is None or not len(times):
+        return f"Across the clip the strongest evidence is for {humanise(cls)}: {ev}."
+
+    m = (times >= float(start)) & (times <= float(end))
+    dur = max(float(end) - float(start), 0.0)
+    if not m.any():
+        return (f"Between {float(start):.0f}s and {float(end):.0f}s ({dur:.0f}s) "
+                f"{ev}, which the detector scores as {humanise(cls)}.")
+
+    idx = np.where(m)[0]
+    onset = arr["onset"][idx] if len(arr.get("onset", [])) else arr["score"][idx]
+    k = int(np.argmax(onset))
+    t_peak = float(times[idx[k]])
+    rise = float(onset[k])
+
+    # Runner-up among the *other* classes, by name rather than by juggling
+    # indices after a delete - the previous version could name the wrong class.
+    lead = ""
+    try:
+        j = names.index(cls)
+        row = cm[idx[k]]
+        others = [(float(row[i]), names[i]) for i in range(len(names)) if i != j]
+        if others:
+            best_other, runner = max(others)
+            gap = float(row[j]) - best_other
+            if gap > 0:
+                lead = (f" It leads the next-closest class "
+                        f"({humanise(runner)}) by {gap:.3f}")
+            else:
+                # The detector and the prompt bank disagree. Say so plainly -
+                # the timing is the confident part, the label is not.
+                lead = (f" The prompt bank ranks {humanise(runner)} slightly "
+                        f"higher here, so the timing is firmer than the label")
+    except (ValueError, IndexError):
+        pass
+
+    return (f"Evidence for {humanise(cls)} peaks at {t_peak:.0f}s, {rise:+.3f} above "
+            f"this camera's own rolling baseline, and stays raised for {dur:.0f}s "
+            f"across {int(m.sum())} sampled frames: {ev}.{lead}.")[:500]
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--infile", default=str(

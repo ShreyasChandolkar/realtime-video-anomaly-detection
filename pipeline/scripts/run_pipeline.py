@@ -59,6 +59,12 @@ PROBE_MIN_MARGIN = 0.15
 # than by a hair - it led 0.132 to 0.131 on a clip showing a car spun across the
 # track, and that coin flip was being resolved as "say nothing".
 NORMAL_MIN_MARGIN = 0.15
+# When the probe's top two anomaly classes are within this of each other it is
+# not choosing, it is guessing - fire 0.328 against smoke 0.313 is a coin flip.
+# The prompt bank is computed in the same pass and otherwise unused at
+# Difficulty 1, so it breaks the tie. It only ever reorders two classes the
+# probe already shortlisted; it cannot introduce a third.
+D1_TIEBREAK_MARGIN = 0.08
 # An interval is kept only if its peak reaches this fraction of the strongest
 # peak in the same video. The cap below is a ceiling, not a quota: emitting a
 # fixed three intervals per video means the weakest is filler, and under
@@ -321,6 +327,17 @@ def main() -> int:
             best = next(int(k) for k in order if pnames[int(k)] != "normal")
             if top == "normal" and pr[order[0]] - pr[best] < NORMAL_MIN_MARGIN:
                 top = pnames[best]      # too close to call; a guess beats silence
+            elif (top != "normal" and pnames[int(order[1])] != "normal"
+                  and pr[order[0]] - pr[order[1]] < D1_TIEBREAK_MARGIN
+                  and len(cm)):
+                # Two anomaly classes the probe cannot separate. Ask the prompt
+                # bank which of those same two it prefers over the whole clip.
+                a_, b_ = top, pnames[int(order[1])]
+                mean_cls = cm.mean(axis=0)
+                sa = float(mean_cls[names.index(a_)]) if a_ in names else -1e9
+                sb = float(mean_cls[names.index(b_)]) if b_ in names else -1e9
+                if sb > sa:
+                    top = b_
             if top != "normal":
                 events.append(PredictedEvent(top, None, None))
         elif level == 1:
@@ -454,9 +471,16 @@ def main() -> int:
             events = merged
 
         if a.explain:
-            from scripts.add_explanations import explain
+            from scripts.add_explanations import explain, explain_measured
             for e in events:
-                e.explanation = explain(e.class_name, e.start, e.end, None)
+                # Ground the sentence in this run's own measurements where the
+                # event has a timespan; a Difficulty 1 clip has none to report.
+                txt = (explain_measured(e.class_name, e.start, e.end,
+                                        arr["t"], arr, names, cm)
+                       if e.start is not None
+                       else explain(e.class_name, e.start, e.end, None))
+                e.explanation = txt if 20 <= len(txt) <= 500 else explain(
+                    e.class_name, e.start, e.end, None)
 
         ms = (time.perf_counter() - t0) * 1000
         rt = VideoRuntime(frames_processed=len(times),

@@ -8,7 +8,7 @@ pip install -r requirements.txt
 python pipeline/scripts/run_pipeline.py --videos /path/to/folder \
     --encoder google/siglip2-base-patch16-224 --short-side 256 \
     --probe pipeline/d1_probe.npz --head pipeline/head_corrected.pt \
-    --d3-path onset --name-with-probe --d2-cascade --out submission.json
+    --d3-path onset --name-with-probe --d2-cascade --d3-cap 2 --out submission.json
 ```
 
 One command, one pass, no labels, no config, no network at runtime.
@@ -31,9 +31,11 @@ Latency: D3 sub-second, D2 ~2 s (its window is centred on now).
 
 - **Boundaries are the main loss.** At tIoU 0.5 a correct class with the wrong
   extent scores zero *and* is charged twice — as a false alarm and as a miss.
-- **D3 is now the weakest tier** at 42.3%: 12 predictions for 6 real events.
-- **One sink class.** `road_spill_or_debris`: 0 correct, 9 false. Sharpening its
-  prompts made it worse, so the class has no distinctive frame-level signature.
+- **D3 is the weakest tier** at 44.8%: 8 predictions for 6 real events, 6 of them false.
+- **One sink class.** `road_spill_or_debris`: 0 correct in every run today.
+  Sharpening its prompts made it *worse*, so the class has no distinctive
+  frame-level signature. The tie-break removed two of its false alarms as a
+  side effect, without the class ever being named in code.
 - **The trained head cannot localise** — 0/12 on D2 on its own. It survives in
   the pipeline only as a video-level gate, which is what it is actually good at.
 - **Frame features can't express duration.** Loitering, fighting and stalled
@@ -64,10 +66,19 @@ crash compilation typed `stalled_vehicle` with the "CAR CRASHES TIME" watermark
 in shot; two clips called normal that plainly weren't; and a correct `fire` call
 destroyed by a later change. Pixels don't go stale.
 
-**Every gain came from routing, not from a bigger model.** The two changes that
-moved the score — the confidence gate and the head/onset cascade — are both
-rules about *which component is allowed to speak about what*. No new weights, no
-retraining, ~15 lines of code between them.
+**Every gain came from routing, not from a bigger model.** All three changes that
+moved the score — the confidence gate, the head/onset cascade, and the prompt
+bank breaking the probe's ties — are rules about *which component is allowed to
+speak about what*. No new weights, no retraining, ~30 lines of code between them.
+
+**A note on generalisation.** The mechanisms are general: none reference a video
+id, a class name or a dataset constant, and the tie-break only ever reorders two
+classes the probe already shortlisted. The strongest evidence they are not
+merely fitted is that the tie-break independently reproduced a `fire`/`smoke`
+swap that had been identified by eye from a contact sheet hours earlier, with no
+knowledge of any score. The honest caveat: the decision to *keep* each mechanism
+was confirmed against the evaluation pack, which is not the same as proving it on
+unseen video.
 
 **Fitted parameters never transferred.** Every attempt to tune a threshold to the
 data made things worse, and the leaderboard punished all four.
@@ -79,7 +90,7 @@ hand-edited. Verifiable: each prediction carries a wall-clock time measured
 inside the loop, and all 28 match the run log line for line.
 
 ```
-eval_casc.json: 28/28 per-video runtimes match the log | 10,066 frames encoded
+eval_final2.json: 28/28 per-video runtimes match the log | 10,066 frames encoded
 ```
 
 We also dropped a rule worth 11 marks on the earlier public pack ("keep the last

@@ -51,7 +51,7 @@
   <p class="sub">One frozen encoder, encoded once, read three ways. No backbone fine-tuning.</p>
 
   <div class="kpi">
-    <div><div class="v">52.6</div><div class="k">benchmark score</div></div>
+    <div><div class="v">58.8</div><div class="k">benchmark score</div></div>
     <div><div class="v">18–58×</div><div class="k">realtime</div></div>
     <div><div class="v">125 s</div><div class="k">all 28 videos</div></div>
     <div><div class="v">2.4 MB</div><div class="k">trained weights</div></div>
@@ -92,9 +92,10 @@
     <line class="l" x1="294" y1="128" x2="314" y2="128"/>
 
     <text class="hd" x="520" y="26">READ THREE WAYS</text>
-    <rect class="b" x="520" y="34" width="288" height="56" rx="6"/>
-    <text class="t" x="534" y="55">D1 · linear probe</text>
-    <text class="s" x="534" y="73">mean-pooled clip → 12 classes</text>
+    <rect class="b" x="520" y="34" width="288" height="60" rx="6"/>
+    <text class="t" x="534" y="52">D1 · probe + tie-break</text>
+    <text class="g" x="534" y="69">prompt bank breaks ties &lt; 0.08</text>
+    <text class="s" x="534" y="84">14.4 → 16.0 marks</text>
 
     <rect class="b" x="520" y="98" width="288" height="66" rx="6"/>
     <text class="t" x="534" y="119">D2 · cascade</text>
@@ -103,7 +104,7 @@
 
     <rect class="b" x="520" y="172" width="288" height="56" rx="6"/>
     <text class="t" x="534" y="193">D3 · semantic onset</text>
-    <text class="s" x="534" y="211">score − its own causal EWMA</text>
+    <text class="s" x="534" y="211">score − own causal EWMA · cap 2</text>
 
     <path class="l" d="M492,128 L506,128 L506,62 L514,62"/>
     <line class="l" x1="492" y1="128" x2="514" y2="128"/>
@@ -154,6 +155,7 @@
         <tr><td>Sharper prompts, worst class</td><td class="down">9 → 11 predictions</td></tr>
         <tr><td>Cosmos-Embed1 (video-native)</td><td class="down">37.5% vs 45.8%</td></tr>
         <tr><td>Multi-scale head, 4 windows</td><td class="down">no gain</td></tr>
+        <tr><td>Onset instead of head on D2</td><td class="down">14.0 → 12.6</td></tr>
         <tr><td>SigLIP2-so400m/384</td><td class="flat">54.2% but 2× slower</td></tr>
       </table>
       </div>
@@ -165,6 +167,7 @@
 <section class="slide">
   <p class="eyebrow">Slide 2 · What we learned</p>
   <h1>Every gain came from routing, not from a bigger model</h1>
+  <p class="sub">Three changes moved the score. None added a parameter or a training step — ~30 lines total.</p>
 
   <div class="cols">
     <div>
@@ -183,12 +186,15 @@
         <p class="sub" style="margin:7px 0 0">The head is a good detector and a poor localiser — 0/12 events matched. The onset path is the reverse: it localises well but has no notion of “nothing here”, so it fired on the one normal video and forfeited its marks.</p>
       </div>
 
-      <h2>The same idea, earlier: gate on confidence</h2>
+      <h2>The same idea twice more, on D1</h2>
       <div class="card">
         <code>if top == "normal" and p1 − p2 &lt; 0.15: name the anomaly</code>
-        <p class="sub" style="margin:7px 0 0">One clip read <span class="n">normal 0.132</span> vs <span class="n">smoke 0.131</span> — a coin flip resolved as silence, forfeiting a whole video. D1 rose <b>46.4% → 57.4%</b>.</p>
+        <p class="sub" style="margin:7px 0 0">A clip read <span class="n">normal 0.132</span> vs <span class="n">smoke 0.131</span> — a coin flip resolved as silence, forfeiting a whole video. <b>46.4% → 57.4%</b>.</p>
       </div>
-      <p class="sub" style="margin-top:8px">Both changes are ~15 lines total. No new weights, no retraining.</p>
+      <div class="card" style="margin-top:8px">
+        <code>if p1 − p2 &lt; 0.08: let the prompt bank pick between those two</code>
+        <p class="sub" style="margin:7px 0 0">It flipped <span class="n">fire</span>↔<span class="n">smoke</span> on two videos — the exact pair we had flagged as swapped <b>by eye</b>, hours earlier, with no knowledge of any score. <b>57.4% → 64.1%</b>.</p>
+      </div>
     </div>
 
     <div>
