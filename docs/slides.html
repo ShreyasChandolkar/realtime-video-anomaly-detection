@@ -1,0 +1,233 @@
+<title>Real-Time Video Anomaly Detection</title>
+<style>
+  :root{
+    --ink:#0f1216; --panel:#171b23; --line:#262c38;
+    --fg:#e9edf2; --dim:#98a2b3; --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+    --win:#5ed39a; --loss:#f2778a; --key:#6ea8fe;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ink);color:var(--fg);margin:0;
+       font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
+  .slide{max-width:1180px;margin:0 auto;padding:26px 30px 34px;
+         border-bottom:1px solid var(--line)}
+  .slide:last-child{border-bottom:0}
+  .eyebrow{font:600 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+           color:var(--key);margin:0 0 6px}
+  h1{font-size:25px;margin:0 0 2px;letter-spacing:-.01em}
+  h2{font-size:13px;margin:20px 0 8px;color:var(--dim);
+     text-transform:uppercase;letter-spacing:.09em;font-weight:600}
+  .sub{color:var(--dim);margin:0 0 4px;font-size:13.5px}
+  ul{margin:0;padding-left:17px} li{margin:3px 0}
+  b{color:#fff;font-weight:600}
+  code,.n{font-family:var(--mono);font-size:.9em} .n{color:var(--key)}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px}
+  th,td{text-align:left;padding:5px 9px;border-bottom:1px solid var(--line)}
+  th{color:var(--dim);font-weight:600;font-size:11.5px;text-transform:uppercase;
+     letter-spacing:.06em}
+  td.num{font-family:var(--mono);text-align:right}
+  .up{color:var(--win)} .down{color:var(--loss)} .flat{color:var(--dim)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:12px 14px}
+  .kpi{display:flex;gap:10px;flex-wrap:wrap}
+  .kpi div{background:var(--panel);border:1px solid var(--line);border-radius:7px;
+           padding:8px 13px;min-width:104px}
+  .kpi .v{font:600 21px/1.1 var(--mono);color:#fff}
+  .kpi .k{font-size:11px;color:var(--dim);margin-top:3px}
+  .wrap{overflow-x:auto}
+  @media (max-width:820px){.cols{grid-template-columns:1fr}}
+  /* Exactly two pages when printed: one slide per landscape sheet. */
+  @page{size:1280px 860px;margin:0}
+  @media print{
+    body{background:#0f1216;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .slide{height:860px;padding:24px 30px;border-bottom:0;page-break-after:always;
+           break-after:page;overflow:hidden}
+    .slide:last-child{page-break-after:auto;break-after:auto}
+  }
+</style>
+
+<section class="slide">
+  <p class="eyebrow">Slide 1 · What we built</p>
+  <h1>Real-time video anomaly detection — 11 classes, open-set</h1>
+  <p class="sub">One frozen encoder, encoded once, read three ways. No backbone fine-tuning.</p>
+
+  <div class="kpi">
+    <div><div class="v">52.6</div><div class="k">benchmark score</div></div>
+    <div><div class="v">18–58×</div><div class="k">realtime</div></div>
+    <div><div class="v">125 s</div><div class="k">all 28 videos</div></div>
+    <div><div class="v">2.4 MB</div><div class="k">trained weights</div></div>
+    <div><div class="v">A2000</div><div class="k">12 GB GPU</div></div>
+  </div>
+
+  <h2>Pipeline</h2>
+  <div class="wrap">
+  <svg viewBox="0 0 1120 274" width="100%" style="max-width:1120px" role="img"
+       aria-label="Video is sampled, encoded once, read three ways, then gated into events">
+    <defs>
+      <marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="3"
+              orient="auto"><path d="M0,0 L8,3 L0,6 z" fill="#6ea8fe"/></marker>
+      <style>
+        .b{fill:#171b23;stroke:#262c38}
+        .t{fill:#e9edf2;font:600 13px system-ui}
+        .s{fill:#98a2b3;font:11px ui-monospace,Menlo,monospace}
+        .g{fill:#5ed39a;font:600 11px ui-monospace,Menlo,monospace}
+        .l{stroke:#6ea8fe;stroke-width:1.6;fill:none;marker-end:url(#a)}
+        .hd{fill:#6ea8fe;font:600 10.5px ui-monospace,Menlo,monospace;letter-spacing:.09em}
+      </style>
+    </defs>
+
+    <rect class="b" x="0" y="102" width="126" height="52" rx="6"/>
+    <text class="t" x="14" y="124">Video in</text>
+    <text class="s" x="14" y="141">file · rtsp</text>
+
+    <rect class="b" x="152" y="102" width="142" height="52" rx="6"/>
+    <text class="t" x="166" y="124">Sample</text>
+    <text class="s" x="166" y="141">4 Hz · 256 px</text>
+
+    <rect class="b" x="320" y="94" width="172" height="68" rx="6"/>
+    <text class="t" x="334" y="119">SigLIP2 base</text>
+    <text class="s" x="334" y="136">frozen · 768-d</text>
+    <text class="s" x="334" y="151">encoded once</text>
+
+    <line class="l" x1="126" y1="128" x2="146" y2="128"/>
+    <line class="l" x1="294" y1="128" x2="314" y2="128"/>
+
+    <text class="hd" x="520" y="26">READ THREE WAYS</text>
+    <rect class="b" x="520" y="34" width="288" height="56" rx="6"/>
+    <text class="t" x="534" y="55">D1 · linear probe</text>
+    <text class="s" x="534" y="73">mean-pooled clip → 12 classes</text>
+
+    <rect class="b" x="520" y="98" width="288" height="66" rx="6"/>
+    <text class="t" x="534" y="119">D2 · cascade</text>
+    <text class="g" x="534" y="137">head: WHETHER → onset: WHEN</text>
+    <text class="s" x="534" y="154">14.0 → 21.3 marks</text>
+
+    <rect class="b" x="520" y="172" width="288" height="56" rx="6"/>
+    <text class="t" x="534" y="193">D3 · semantic onset</text>
+    <text class="s" x="534" y="211">score − its own causal EWMA</text>
+
+    <path class="l" d="M492,128 L506,128 L506,62 L514,62"/>
+    <line class="l" x1="492" y1="128" x2="514" y2="128"/>
+    <path class="l" d="M492,128 L506,128 L506,200 L514,200"/>
+
+    <text class="hd" x="836" y="26">GATES</text>
+    <rect class="b" x="836" y="34" width="184" height="194" rx="6"/>
+    <text class="t" x="850" y="58">Speak only when sure</text>
+    <text class="s" x="850" y="82">probe may rename only</text>
+    <text class="s" x="850" y="97">if margin ≥ 0.15</text>
+    <text class="s" x="850" y="121">“normal” must win by</text>
+    <text class="s" x="850" y="136">0.15, else name a class</text>
+    <text class="s" x="850" y="160">hysteresis 0.80 / 0.40</text>
+    <text class="s" x="850" y="175">per-class min-on / off</text>
+    <text class="s" x="850" y="199">explanation per event</text>
+    <text class="s" x="850" y="214">20–500 chars</text>
+
+    <line class="l" x1="808" y1="62"  x2="830" y2="62"/>
+    <line class="l" x1="808" y1="131" x2="830" y2="131"/>
+    <line class="l" x1="808" y1="200" x2="830" y2="200"/>
+
+    <rect class="b" x="1036" y="102" width="84" height="52" rx="6"/>
+    <text class="t" x="1049" y="124">Events</text>
+    <text class="s" x="1049" y="141">JSON</text>
+    <line class="l" x1="1020" y1="128" x2="1030" y2="128"/>
+  </svg>
+  </div>
+
+  <div class="cols" style="margin-top:16px">
+    <div>
+      <h2>Why this shape</h2>
+      <ul>
+        <li><b>Frozen encoder, one pass.</b> Features computed once, read three ways — why it beats realtime on a modest GPU.</li>
+        <li><b>Prompts are data, not weights.</b> A twelfth class is a sentence, not a retrain.</li>
+        <li><b>Score against normal.</b> Margin over the best of ~70 normal prompts; raw similarity just describes the scene.</li>
+        <li><b>Long video needs a baseline.</b> D3 keys on the rise over a causal 20 s EWMA, so a busy junction isn't permanently anomalous.</li>
+        <li><b>Locating ≠ naming.</b> Detector says when, probe says what — 63% vs 33% on class.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Tested and rejected</h2>
+      <div class="wrap">
+      <table>
+        <tr><th>Tried</th><th>Outcome</th></tr>
+        <tr><td>Half-max boundary refinement</td><td class="down">D3 16.9 → 8.0</td></tr>
+        <tr><td>Adaptive per-video D2 thresholds</td><td class="down">D2 14.0 → 5.3</td></tr>
+        <tr><td>Onset alone on D2</td><td class="down">14.0 → 12.6</td></tr>
+        <tr><td>Sharper prompts, worst class</td><td class="down">9 → 11 predictions</td></tr>
+        <tr><td>Cosmos-Embed1 (video-native)</td><td class="down">37.5% vs 45.8%</td></tr>
+        <tr><td>Multi-scale head, 4 windows</td><td class="down">no gain</td></tr>
+        <tr><td>SigLIP2-so400m/384</td><td class="flat">54.2% but 2× slower</td></tr>
+      </table>
+      </div>
+      <p class="sub" style="margin-top:8px">Six measured negatives. Every one cost a run on the live scorer, and every one is now closed.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Slide 2 · What we learned</p>
+  <h1>Every gain came from routing, not from a bigger model</h1>
+
+  <div class="cols">
+    <div>
+      <h2>D2: two components, each doing half the job</h2>
+      <div class="wrap">
+      <table>
+        <tr><th></th><th>E024 (normal)</th><th>E021–23</th><th>D2</th></tr>
+        <tr><td>head only</td><td class="num up">silent 8.75</td><td class="num">5.25</td><td class="num">14.0</td></tr>
+        <tr><td>onset only</td><td class="num down">fires 0</td><td class="num up">12.6</td><td class="num">12.6</td></tr>
+        <tr><td><b>cascade</b></td><td class="num up">silent 8.75</td><td class="num up">12.6</td><td class="num up"><b>21.3</b></td></tr>
+      </table>
+      </div>
+      <div class="card" style="margin-top:10px">
+        <code>if head.max() &gt;= 0.80:&nbsp;&nbsp;# head answers WHETHER<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;found = to_events(...)&nbsp;&nbsp;# onset answers WHEN</code>
+        <p class="sub" style="margin:7px 0 0">The head is a good detector and a poor localiser — 0/12 events matched. The onset path is the reverse: it localises well but has no notion of “nothing here”, so it fired on the one normal video and forfeited its marks.</p>
+      </div>
+
+      <h2>The same idea, earlier: gate on confidence</h2>
+      <div class="card">
+        <code>if top == "normal" and p1 − p2 &lt; 0.15: name the anomaly</code>
+        <p class="sub" style="margin:7px 0 0">One clip read <span class="n">normal 0.132</span> vs <span class="n">smoke 0.131</span> — a coin flip resolved as silence, forfeiting a whole video. D1 rose <b>46.4% → 57.4%</b>.</p>
+      </div>
+      <p class="sub" style="margin-top:8px">Both changes are ~15 lines total. No new weights, no retraining.</p>
+    </div>
+
+    <div>
+      <h2>What actually found the bugs</h2>
+      <ul>
+        <li><b>Looking at the frames.</b> Rendered the frame at the midpoint of every predicted event into one labelled sheet. Ten minutes, four real defects.</li>
+        <li>A 240 s clip called <code>wrong_way_driving</code> six times — it was queued trucks on the far carriageway.</li>
+        <li>A dashcam <b>crash compilation</b> typed <code>stalled_vehicle</code> — the “CAR CRASHES TIME” watermark was in frame.</li>
+        <li>A correct <code>fire</code> call silently destroyed by a later change — caught only by re-rendering.</li>
+      </ul>
+
+      <h2>Local validation never predicted the score</h2>
+      <div class="wrap">
+      <table>
+        <tr><th>Local signal</th><th>Said</th><th>Reality</th></tr>
+        <tr><td>Marks formula</td><td class="num">29.9</td><td class="num">51.9</td></tr>
+        <tr><td>Train accuracy</td><td class="num up">+27</td><td class="num down">−24</td></tr>
+        <tr><td>Val IoU 0.66 → 0.86</td><td class="num up">better</td><td class="num down">worse</td></tr>
+        <tr><td>Cross-val 33% → 58%</td><td class="num up">better</td><td class="num flat">±0</td></tr>
+      </table>
+      </div>
+      <p class="sub" style="margin-top:8px">Ground truth was revised mid-event, so every cached label was stale. Frame inspection replaced metrics.</p>
+
+      <h2>Why D2 was the hard tier</h2>
+      <div class="wrap">
+      <table>
+        <tr><th>Tier</th><th>Event length</th><th>Must land within</th></tr>
+        <tr><td>D1</td><td class="flat">—</td><td class="flat">null timestamps</td></tr>
+        <tr><td><b>D2</b></td><td class="num">20 s</td><td class="num down"><b>~7 s</b></td></tr>
+        <tr><td>D3</td><td class="num">38–125 s</td><td class="num">13–60 s</td></tr>
+      </table>
+      </div>
+
+      <h2>Rules we held to</h2>
+      <ul>
+        <li><b>Every submission is one full pipeline run</b> — verified by matching all 28 per-video runtimes to the run log.</li>
+        <li><b>No rule fitted to a video.</b> Dropped one worth 11 marks because it meant nothing on unseen footage.</li>
+        <li><b>Reads no labels.</b> Point it at a folder — <span class="n">43× realtime</span>, no config.</li>
+      </ul>
+    </div>
+  </div>
+</section>
