@@ -162,6 +162,29 @@ Two of those observations were later reproduced *independently by the pipeline*:
 run 9's tie-break flipped `fire`/`smoke` on exactly the two clips we had flagged
 by eye, from the prompt bank alone, with no knowledge of any score.
 
+## Runs after the scoring change
+
+Once false-positive penalties landed, the ranking inverted and we re-swept the
+selection rules. D1 was held fixed throughout, so each row isolates one tier.
+
+| Run | Change | D1 | D2 | D3 | Marks |
+|---|---|---|---|---|---|
+| 10 | `eval_tie` re-scored under the new rules | 16.0 | 20.5 | 14.4 | 50.9 |
+| 11 | D3 intervals ranked by the temporal head, not duration | 16.0 | 20.5 | 15.2 | 51.7 |
+| 12 | **One D3 interval per video** — false alarms 6 → 2 | 16.0 | 20.5 | **17.7** | **54.2** |
+| 13 | Also cut D2 from 9 events to 6 | 16.0 | **20.0** | 17.7 | 53.7 |
+
+Two clean readings:
+
+- **D3 wants fewer events.** Cutting to one interval per video took false alarms
+  from 6 to 2 and precision to 50%, worth 3.3 marks under the penalty.
+- **D2 wants all of them.** The same cut applied to D2 *lost* half a mark, so its
+  nine events are carrying more true positives than false ones. The two tiers
+  want opposite treatment, which is why a single global rule never fit.
+
+Ranking D3 by the head scored worse than ranking by duration (15.2 vs 17.7) —
+the specialist split that worked on D2 does not transfer to selection.
+
 ## The scorer moved under us
 
 Partway through, the organisers introduced **false-positive penalties**. This is

@@ -3,7 +3,7 @@
   "submission_id": "run",
   "model_name": "siglip2-onset-cascade",
   "run_metadata": {
-    "total_wall_time_ms": 130063.0,
+    "total_wall_time_ms": 131755.1,
     "max_parallel_videos": 1,
     "hardware": "cuda"
   },
@@ -21,16 +21,16 @@
       "runtime_metadata": {
         "frames_processed": 23,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 534.7,
+        "end_to_end_internal_time_ms": 727.0,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 23.2,
-            "average_time_ms": 23.2,
-            "p50_time_ms": 23.2,
-            "p95_time_ms": 23.2,
-            "max_time_ms": 23.2
+            "total_time_ms": 31.6,
+            "average_time_ms": 31.6,
+            "p50_time_ms": 31.6,
+            "p95_time_ms": 31.6,
+            "max_time_ms": 31.6
           }
         ]
       }
@@ -48,16 +48,16 @@
       "runtime_metadata": {
         "frames_processed": 18,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 122.8,
+        "end_to_end_internal_time_ms": 162.6,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 6.8,
-            "average_time_ms": 6.8,
-            "p50_time_ms": 6.8,
-            "p95_time_ms": 6.8,
-            "max_time_ms": 6.8
+            "total_time_ms": 9.0,
+            "average_time_ms": 9.0,
+            "p50_time_ms": 9.0,
+            "p95_time_ms": 9.0,
+            "max_time_ms": 9.0
           }
         ]
       }
@@ -68,16 +68,16 @@
       "runtime_metadata": {
         "frames_processed": 68,
         "chunks_processed": 2,
-        "end_to_end_internal_time_ms": 538.4,
+        "end_to_end_internal_time_ms": 667.9,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 7.9,
-            "average_time_ms": 7.9,
-            "p50_time_ms": 7.9,
-            "p95_time_ms": 7.9,
-            "max_time_ms": 7.9
+            "total_time_ms": 9.8,
+            "average_time_ms": 9.8,
+            "p50_time_ms": 9.8,
+            "p95_time_ms": 9.8,
+            "max_time_ms": 9.8
           }
         ]
       }
@@ -95,16 +95,16 @@
       "runtime_metadata": {
         "frames_processed": 23,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 202.3,
+        "end_to_end_internal_time_ms": 277.6,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.8,
-            "average_time_ms": 8.8,
-            "p50_time_ms": 8.8,
-            "p95_time_ms": 8.8,
-            "max_time_ms": 8.8
+            "total_time_ms": 12.1,
+            "average_time_ms": 12.1,
+            "p50_time_ms": 12.1,
+            "p95_time_ms": 12.1,
+            "max_time_ms": 12.1
           }
         ]
       }
@@ -122,16 +122,16 @@
       "runtime_metadata": {
         "frames_processed": 28,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 191.6,
+        "end_to_end_internal_time_ms": 306.2,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 6.8,
-            "average_time_ms": 6.8,
-            "p50_time_ms": 6.8,
-            "p95_time_ms": 6.8,
-            "max_time_ms": 6.8
+            "total_time_ms": 10.9,
+            "average_time_ms": 10.9,
+            "p50_time_ms": 10.9,
+            "p95_time_ms": 10.9,
+            "max_time_ms": 10.9
           }
         ]
       }
@@ -149,16 +149,16 @@
       "runtime_metadata": {
         "frames_processed": 23,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 221.9,
+        "end_to_end_internal_time_ms": 289.2,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 9.6,
-            "average_time_ms": 9.6,
-            "p50_time_ms": 9.6,
-            "p95_time_ms": 9.6,
-            "max_time_ms": 9.6
+            "total_time_ms": 12.6,
+            "average_time_ms": 12.6,
+            "p50_time_ms": 12.6,
+            "p95_time_ms": 12.6,
+            "max_time_ms": 12.6
           }
         ]
       }
@@ -176,16 +176,16 @@
       "runtime_metadata": {
         "frames_processed": 57,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 509.1,
+        "end_to_end_internal_time_ms": 646.4,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.9,
-            "average_time_ms": 8.9,
-            "p50_time_ms": 8.9,
-            "p95_time_ms": 8.9,
-            "max_time_ms": 8.9
+            "total_time_ms": 11.3,
+            "average_time_ms": 11.3,
+            "p50_time_ms": 11.3,
+            "p95_time_ms": 11.3,
+            "max_time_ms": 11.3
           }
         ]
       }
@@ -203,16 +203,16 @@
       "runtime_metadata": {
         "frames_processed": 30,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 277.9,
+        "end_to_end_internal_time_ms": 328.4,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 9.3,
-            "average_time_ms": 9.3,
-            "p50_time_ms": 9.3,
-            "p95_time_ms": 9.3,
-            "max_time_ms": 9.3
+            "total_time_ms": 10.9,
+            "average_time_ms": 10.9,
+            "p50_time_ms": 10.9,
+            "p95_time_ms": 10.9,
+            "max_time_ms": 10.9
           }
         ]
       }
@@ -230,16 +230,16 @@
       "runtime_metadata": {
         "frames_processed": 24,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 205.8,
+        "end_to_end_internal_time_ms": 269.1,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.6,
-            "average_time_ms": 8.6,
-            "p50_time_ms": 8.6,
-            "p95_time_ms": 8.6,
-            "max_time_ms": 8.6
+            "total_time_ms": 11.2,
+            "average_time_ms": 11.2,
+            "p50_time_ms": 11.2,
+            "p95_time_ms": 11.2,
+            "max_time_ms": 11.2
           }
         ]
       }
@@ -257,16 +257,16 @@
       "runtime_metadata": {
         "frames_processed": 24,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 202.3,
+        "end_to_end_internal_time_ms": 264.3,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.4,
-            "average_time_ms": 8.4,
-            "p50_time_ms": 8.4,
-            "p95_time_ms": 8.4,
-            "max_time_ms": 8.4
+            "total_time_ms": 11.0,
+            "average_time_ms": 11.0,
+            "p50_time_ms": 11.0,
+            "p95_time_ms": 11.0,
+            "max_time_ms": 11.0
           }
         ]
       }
@@ -284,16 +284,16 @@
       "runtime_metadata": {
         "frames_processed": 23,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 205.9,
+        "end_to_end_internal_time_ms": 268.5,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 9.0,
-            "average_time_ms": 9.0,
-            "p50_time_ms": 9.0,
-            "p95_time_ms": 9.0,
-            "max_time_ms": 9.0
+            "total_time_ms": 11.7,
+            "average_time_ms": 11.7,
+            "p50_time_ms": 11.7,
+            "p95_time_ms": 11.7,
+            "max_time_ms": 11.7
           }
         ]
       }
@@ -311,16 +311,16 @@
       "runtime_metadata": {
         "frames_processed": 24,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 212.2,
+        "end_to_end_internal_time_ms": 284.3,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.8,
-            "average_time_ms": 8.8,
-            "p50_time_ms": 8.8,
-            "p95_time_ms": 8.8,
-            "max_time_ms": 8.8
+            "total_time_ms": 11.8,
+            "average_time_ms": 11.8,
+            "p50_time_ms": 11.8,
+            "p95_time_ms": 11.8,
+            "max_time_ms": 11.8
           }
         ]
       }
@@ -338,16 +338,16 @@
       "runtime_metadata": {
         "frames_processed": 23,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 210.8,
+        "end_to_end_internal_time_ms": 285.7,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 9.2,
-            "average_time_ms": 9.2,
-            "p50_time_ms": 9.2,
-            "p95_time_ms": 9.2,
-            "max_time_ms": 9.2
+            "total_time_ms": 12.4,
+            "average_time_ms": 12.4,
+            "p50_time_ms": 12.4,
+            "p95_time_ms": 12.4,
+            "max_time_ms": 12.4
           }
         ]
       }
@@ -365,16 +365,16 @@
       "runtime_metadata": {
         "frames_processed": 35,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 297.6,
+        "end_to_end_internal_time_ms": 381.9,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.5,
-            "average_time_ms": 8.5,
-            "p50_time_ms": 8.5,
-            "p95_time_ms": 8.5,
-            "max_time_ms": 8.5
+            "total_time_ms": 10.9,
+            "average_time_ms": 10.9,
+            "p50_time_ms": 10.9,
+            "p95_time_ms": 10.9,
+            "max_time_ms": 10.9
           }
         ]
       }
@@ -392,16 +392,16 @@
       "runtime_metadata": {
         "frames_processed": 47,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 390.2,
+        "end_to_end_internal_time_ms": 426.0,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.3,
-            "average_time_ms": 8.3,
-            "p50_time_ms": 8.3,
-            "p95_time_ms": 8.3,
-            "max_time_ms": 8.3
+            "total_time_ms": 9.1,
+            "average_time_ms": 9.1,
+            "p50_time_ms": 9.1,
+            "p95_time_ms": 9.1,
+            "max_time_ms": 9.1
           }
         ]
       }
@@ -419,16 +419,16 @@
       "runtime_metadata": {
         "frames_processed": 61,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 505.4,
+        "end_to_end_internal_time_ms": 531.5,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.3,
-            "average_time_ms": 8.3,
-            "p50_time_ms": 8.3,
-            "p95_time_ms": 8.3,
-            "max_time_ms": 8.3
+            "total_time_ms": 8.7,
+            "average_time_ms": 8.7,
+            "p50_time_ms": 8.7,
+            "p95_time_ms": 8.7,
+            "max_time_ms": 8.7
           }
         ]
       }
@@ -446,16 +446,16 @@
       "runtime_metadata": {
         "frames_processed": 113,
         "chunks_processed": 3,
-        "end_to_end_internal_time_ms": 835.9,
+        "end_to_end_internal_time_ms": 824.6,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 7.4,
-            "average_time_ms": 7.4,
-            "p50_time_ms": 7.4,
-            "p95_time_ms": 7.4,
-            "max_time_ms": 7.4
+            "total_time_ms": 7.3,
+            "average_time_ms": 7.3,
+            "p50_time_ms": 7.3,
+            "p95_time_ms": 7.3,
+            "max_time_ms": 7.3
           }
         ]
       }
@@ -473,16 +473,16 @@
       "runtime_metadata": {
         "frames_processed": 113,
         "chunks_processed": 3,
-        "end_to_end_internal_time_ms": 838.8,
+        "end_to_end_internal_time_ms": 810.1,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 7.4,
-            "average_time_ms": 7.4,
-            "p50_time_ms": 7.4,
-            "p95_time_ms": 7.4,
-            "max_time_ms": 7.4
+            "total_time_ms": 7.2,
+            "average_time_ms": 7.2,
+            "p50_time_ms": 7.2,
+            "p95_time_ms": 7.2,
+            "max_time_ms": 7.2
           }
         ]
       }
@@ -500,16 +500,16 @@
       "runtime_metadata": {
         "frames_processed": 38,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 372.8,
+        "end_to_end_internal_time_ms": 375.3,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 9.8,
-            "average_time_ms": 9.8,
-            "p50_time_ms": 9.8,
-            "p95_time_ms": 9.8,
-            "max_time_ms": 9.8
+            "total_time_ms": 9.9,
+            "average_time_ms": 9.9,
+            "p50_time_ms": 9.9,
+            "p95_time_ms": 9.9,
+            "max_time_ms": 9.9
           }
         ]
       }
@@ -527,16 +527,16 @@
       "runtime_metadata": {
         "frames_processed": 38,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 349.2,
+        "end_to_end_internal_time_ms": 356.8,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 9.2,
-            "average_time_ms": 9.2,
-            "p50_time_ms": 9.2,
-            "p95_time_ms": 9.2,
-            "max_time_ms": 9.2
+            "total_time_ms": 9.4,
+            "average_time_ms": 9.4,
+            "p50_time_ms": 9.4,
+            "p95_time_ms": 9.4,
+            "max_time_ms": 9.4
           }
         ]
       }
@@ -566,16 +566,16 @@
       "runtime_metadata": {
         "frames_processed": 1000,
         "chunks_processed": 31,
-        "end_to_end_internal_time_ms": 9589.8,
+        "end_to_end_internal_time_ms": 10686.0,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 9.6,
-            "average_time_ms": 9.6,
-            "p50_time_ms": 9.6,
-            "p95_time_ms": 9.6,
-            "max_time_ms": 9.6
+            "total_time_ms": 10.7,
+            "average_time_ms": 10.7,
+            "p50_time_ms": 10.7,
+            "p95_time_ms": 10.7,
+            "max_time_ms": 10.7
           }
         ]
       }
@@ -605,16 +605,16 @@
       "runtime_metadata": {
         "frames_processed": 1000,
         "chunks_processed": 31,
-        "end_to_end_internal_time_ms": 12901.2,
+        "end_to_end_internal_time_ms": 12425.0,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 12.9,
-            "average_time_ms": 12.9,
-            "p50_time_ms": 12.9,
-            "p95_time_ms": 12.9,
-            "max_time_ms": 12.9
+            "total_time_ms": 12.4,
+            "average_time_ms": 12.4,
+            "p50_time_ms": 12.4,
+            "p95_time_ms": 12.4,
+            "max_time_ms": 12.4
           }
         ]
       }
@@ -644,16 +644,16 @@
       "runtime_metadata": {
         "frames_processed": 1000,
         "chunks_processed": 31,
-        "end_to_end_internal_time_ms": 11171.3,
+        "end_to_end_internal_time_ms": 11062.5,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 11.2,
-            "average_time_ms": 11.2,
-            "p50_time_ms": 11.2,
-            "p95_time_ms": 11.2,
-            "max_time_ms": 11.2
+            "total_time_ms": 11.1,
+            "average_time_ms": 11.1,
+            "p50_time_ms": 11.1,
+            "p95_time_ms": 11.1,
+            "max_time_ms": 11.1
           }
         ]
       }
@@ -664,16 +664,16 @@
       "runtime_metadata": {
         "frames_processed": 1028,
         "chunks_processed": 32,
-        "end_to_end_internal_time_ms": 32641.4,
+        "end_to_end_internal_time_ms": 32528.6,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 31.8,
-            "average_time_ms": 31.8,
-            "p50_time_ms": 31.8,
-            "p95_time_ms": 31.8,
-            "max_time_ms": 31.8
+            "total_time_ms": 31.6,
+            "average_time_ms": 31.6,
+            "p50_time_ms": 31.6,
+            "p95_time_ms": 31.6,
+            "max_time_ms": 31.6
           }
         ]
       }
@@ -681,12 +681,6 @@
     {
       "video_id": "E025",
       "events": [
-        {
-          "class_name": "stalled_or_broken_down_vehicle",
-          "start_time_sec": 8.533,
-          "end_time_sec": 75.733,
-          "explanation": "Evidence for stalled or broken down vehicle peaks at 13s, +0.508 above this camera's own rolling baseline, and stays raised for 67s across 253 sampled frames: a vehicle remains stationary in a running traffic lane rather than a lay-by. It leads the next class (wrong way driving) by 0.094."
-        },
         {
           "class_name": "stalled_or_broken_down_vehicle",
           "start_time_sec": 118.133,
@@ -697,16 +691,16 @@
       "runtime_metadata": {
         "frames_processed": 1350,
         "chunks_processed": 42,
-        "end_to_end_internal_time_ms": 13272.7,
+        "end_to_end_internal_time_ms": 12733.5,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 9.8,
-            "average_time_ms": 9.8,
-            "p50_time_ms": 9.8,
-            "p95_time_ms": 9.8,
-            "max_time_ms": 9.8
+            "total_time_ms": 9.4,
+            "average_time_ms": 9.4,
+            "p50_time_ms": 9.4,
+            "p95_time_ms": 9.4,
+            "max_time_ms": 9.4
           }
         ]
       }
@@ -719,27 +713,21 @@
           "start_time_sec": 57.6,
           "end_time_sec": 108.267,
           "explanation": "Evidence for loitering or suspicious presence peaks at 102s, +0.397 above this camera's own rolling baseline, and stays raised for 51s across 96 sampled frames: a person remains in place while the rest of the scene moves on around them. Margin over wrong way driving is thin (-0.175), so the class is the less certain part."
-        },
-        {
-          "class_name": "loitering_or_suspicious_presence",
-          "start_time_sec": 213.867,
-          "end_time_sec": 260.8,
-          "explanation": "Evidence for loitering or suspicious presence peaks at 249s, +0.748 above this camera's own rolling baseline, and stays raised for 47s across 89 sampled frames: a person remains in place while the rest of the scene moves on around them. Margin over wrong way driving is thin (-0.242), so the class is the less certain part."
         }
       ],
       "runtime_metadata": {
         "frames_processed": 613,
         "chunks_processed": 19,
-        "end_to_end_internal_time_ms": 5554.8,
+        "end_to_end_internal_time_ms": 5635.8,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 9.1,
-            "average_time_ms": 9.1,
-            "p50_time_ms": 9.1,
-            "p95_time_ms": 9.1,
-            "max_time_ms": 9.1
+            "total_time_ms": 9.2,
+            "average_time_ms": 9.2,
+            "p50_time_ms": 9.2,
+            "p95_time_ms": 9.2,
+            "max_time_ms": 9.2
           }
         ]
       }
@@ -752,27 +740,21 @@
           "start_time_sec": 7.241,
           "end_time_sec": 330.964,
           "explanation": "Evidence for traffic accident peaks at 23s, +1.607 above this camera's own rolling baseline, and stays raised for 324s across 1387 sampled frames: vehicle trajectories converge abruptly and traffic behind comes to a halt. Margin over stalled or broken down vehicle is thin (-0.244), so the class is the less certain part."
-        },
-        {
-          "class_name": "traffic_accident",
-          "start_time_sec": 421.588,
-          "end_time_sec": 462.462,
-          "explanation": "Evidence for traffic accident peaks at 457s, +0.600 above this camera's own rolling baseline, and stays raised for 41s across 176 sampled frames: vehicle trajectories converge abruptly and traffic behind comes to a halt. Margin over stalled or broken down vehicle is thin (-0.239), so the class is the less certain part."
         }
       ],
       "runtime_metadata": {
         "frames_processed": 2580,
         "chunks_processed": 80,
-        "end_to_end_internal_time_ms": 31291.6,
+        "end_to_end_internal_time_ms": 32013.0,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 12.1,
-            "average_time_ms": 12.1,
-            "p50_time_ms": 12.1,
-            "p95_time_ms": 12.1,
-            "max_time_ms": 12.1
+            "total_time_ms": 12.4,
+            "average_time_ms": 12.4,
+            "p50_time_ms": 12.4,
+            "p95_time_ms": 12.4,
+            "max_time_ms": 12.4
           }
         ]
       }
@@ -780,12 +762,6 @@
     {
       "video_id": "E028",
       "events": [
-        {
-          "class_name": "loitering_or_suspicious_presence",
-          "start_time_sec": 4.267,
-          "end_time_sec": 88.533,
-          "explanation": "Evidence for loitering or suspicious presence peaks at 39s, +0.832 above this camera's own rolling baseline, and stays raised for 84s across 159 sampled frames: a person remains in place while the rest of the scene moves on around them. Margin over stalled or broken down vehicle is thin (-0.127), so the class is the less certain part."
-        },
         {
           "class_name": "road_spill_or_debris",
           "start_time_sec": 150.4,
@@ -796,16 +772,16 @@
       "runtime_metadata": {
         "frames_processed": 662,
         "chunks_processed": 20,
-        "end_to_end_internal_time_ms": 6408.0,
+        "end_to_end_internal_time_ms": 6180.3,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 9.7,
-            "average_time_ms": 9.7,
-            "p50_time_ms": 9.7,
-            "p95_time_ms": 9.7,
-            "max_time_ms": 9.7
+            "total_time_ms": 9.3,
+            "average_time_ms": 9.3,
+            "p50_time_ms": 9.3,
+            "p95_time_ms": 9.3,
+            "max_time_ms": 9.3
           }
         ]
       }

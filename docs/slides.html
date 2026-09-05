@@ -51,7 +51,7 @@
   <p class="sub">One frozen encoder, encoded once, read three ways. No backbone fine-tuning.</p>
 
   <div class="kpi">
-    <div><div class="v">58.8</div><div class="k">benchmark score</div></div>
+    <div><div class="v">57.7</div><div class="k">benchmark score</div></div>
     <div><div class="v">18–58×</div><div class="k">realtime</div></div>
     <div><div class="v">125 s</div><div class="k">all 28 videos</div></div>
     <div><div class="v">2.4 MB</div><div class="k">trained weights</div></div>
@@ -188,9 +188,14 @@
     <tr><td>7</td><td><b>D2 cascade — head decides whether, onset decides when</b></td><td class="num">14.4</td><td class="num up">21.3</td><td class="num">16.9</td><td class="num up">52.6</td></tr>
     <tr><td>8</td><td><b>Keep 2 intervals per long video, not 3</b></td><td class="num">14.4</td><td class="num">21.3</td><td class="num up">17.9</td><td class="num up">53.6</td></tr>
     <tr><td>9</td><td><b>Prompt bank breaks the probe's ties</b></td><td class="num up">16.0</td><td class="num">21.3</td><td class="num">17.9</td><td class="num up"><b>55.3</b></td></tr>
+    <tr><td colspan="6" style="color:#f3c363;font-size:12px;padding-top:9px">↓ organisers introduced false-positive penalties — everything below is scored differently</td></tr>
+    <tr><td>10</td><td>Run 9 re-scored, unchanged, under the new rules</td><td class="num">16.0</td><td class="num">20.5</td><td class="num down">14.4</td><td class="num down">50.9</td></tr>
+    <tr><td>11</td><td>D3 intervals ranked by the head, not by duration</td><td class="num">16.0</td><td class="num">20.5</td><td class="num">15.2</td><td class="num">51.7</td></tr>
+    <tr><td>12</td><td><b>One D3 interval per video</b> — false alarms 6 → 2</td><td class="num">16.0</td><td class="num">20.5</td><td class="num up">17.7</td><td class="num up"><b>54.2</b></td></tr>
+    <tr><td>13</td><td>Also cut D2 from 9 events to 6</td><td class="num">16.0</td><td class="num down">20.0</td><td class="num">17.7</td><td class="num down">53.7</td></tr>
   </table>
   </div>
-  <p class="sub" style="margin-top:8px">Plus a reasoning bonus of +3.5/5 throughout — <b>58.8 total</b>.</p>
+  <p class="sub" style="margin-top:8px">Plus a reasoning bonus of +3.5/5 throughout — <b>57.7 total</b>. The benchmark changed mid-event: run 9 scored 55.3 before the penalty and 50.9 after, unchanged. Any delta measured across that line is meaningless.</p>
 
   <div class="cols" style="margin-top:24px">
     <div>
@@ -205,6 +210,7 @@
       <ul>
         <li><b>Run 3 halved D3.</b> We tightened intervals to their peak width; the real events run 38–125 s, so tidy spans miss them under tIoU 0.5.</li>
         <li><b>Run 5 cost a whole video.</b> Forcing every clip to fire lost 8.7 marks — almost exactly the 8.75 of the one normal video.</li>
+        <li><b>D2 and D3 want opposite things.</b> Cutting events helped D3 (+3.3) and hurt D2 (−0.5), so no single global rule fits both.</li>
       </ul>
     </div>
   </div>
