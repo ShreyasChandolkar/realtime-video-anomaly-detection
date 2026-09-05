@@ -165,75 +165,68 @@
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Slide 2 · What we learned</p>
-  <h1>Every gain came from routing, not from a bigger model</h1>
-  <p class="sub">Three changes moved the score. None added a parameter or a training step — ~30 lines total.</p>
+  <p class="eyebrow">Slide 2 · Experiments &amp; what we learned</p>
+  <h1>Nine full runs. Every gain was routing; every loss was tuning.</h1>
+  <p class="sub">Each row is one complete pipeline run over all 28 videos, scored live. Nothing estimated, nothing assembled.</p>
 
-  <div class="cols">
+  <div class="cols" style="grid-template-columns:1.25fr 1fr">
     <div>
-      <h2>D2: two components, each doing half the job</h2>
+      <h2>Every submission, measured</h2>
       <div class="wrap">
       <table>
-        <tr><th></th><th>E024 (normal)</th><th>E021–23</th><th>D2</th></tr>
-        <tr><td>head only</td><td class="num up">silent 8.75</td><td class="num">5.25</td><td class="num">14.0</td></tr>
-        <tr><td>onset only</td><td class="num down">fires 0</td><td class="num up">12.6</td><td class="num">12.6</td></tr>
-        <tr><td><b>cascade</b></td><td class="num up">silent 8.75</td><td class="num up">12.6</td><td class="num up"><b>21.3</b></td></tr>
+        <tr><th>#</th><th>What changed</th><th>D1</th><th>D2</th><th>D3</th><th>Marks</th></tr>
+        <tr><td>1</td><td>Baseline: probe · head · onset</td><td class="num">11.6</td><td class="num">14.0</td><td class="num">16.9</td><td class="num">42.5</td></tr>
+        <tr><td>2</td><td><b>“normal” must win by a margin</b></td><td class="num up">14.4</td><td class="num">14.0</td><td class="num">16.9</td><td class="num up">45.3</td></tr>
+        <tr><td>3</td><td>Half-max boundary refinement</td><td class="num">14.4</td><td class="num">14.0</td><td class="num down">8.0</td><td class="num down">36.4</td></tr>
+        <tr><td>4</td><td>Onset instead of head on D2</td><td class="num">14.4</td><td class="num down">12.6</td><td class="num">16.9</td><td class="num down">43.9</td></tr>
+        <tr><td>5</td><td>Adaptive per-video D2 thresholds</td><td class="num">14.4</td><td class="num down">5.3</td><td class="num">16.9</td><td class="num down">36.6</td></tr>
+        <tr><td>6</td><td>Tighter D2 hysteresis</td><td class="num">14.4</td><td class="num">14.0</td><td class="num">16.9</td><td class="num">45.3</td></tr>
+        <tr><td>7</td><td><b>D2 cascade: whether → when</b></td><td class="num">14.4</td><td class="num up">21.3</td><td class="num">16.9</td><td class="num up">52.6</td></tr>
+        <tr><td>8</td><td><b>Keep 2 D3 intervals, not 3</b></td><td class="num">14.4</td><td class="num">21.3</td><td class="num up">17.9</td><td class="num up">53.6</td></tr>
+        <tr><td>9</td><td><b>Prompt bank breaks probe ties</b></td><td class="num up">16.0</td><td class="num">21.3</td><td class="num">17.9</td><td class="num up"><b>55.3</b></td></tr>
       </table>
       </div>
-      <div class="card" style="margin-top:10px">
-        <code>if head.max() &gt;= 0.80:&nbsp;&nbsp;# head answers WHETHER<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;found = to_events(...)&nbsp;&nbsp;# onset answers WHEN</code>
-        <p class="sub" style="margin:7px 0 0">The head is a good detector and a poor localiser — 0/12 events matched. The onset path is the reverse: it localises well but has no notion of “nothing here”, so it fired on the one normal video and forfeited its marks.</p>
-      </div>
+      <p class="sub" style="margin-top:6px">+3.5/5 reasoning bonus throughout — <b>58.8 total</b>.
+      Routing changes: <span class="up">+2.8, +7.3, +1.0, +1.7</span>. Fitted parameters: <span class="down">−8.9, −8.7, −1.4</span>.</p>
 
-      <h2>The same idea twice more, on D1</h2>
-      <div class="card">
-        <code>if top == "normal" and p1 − p2 &lt; 0.15: name the anomaly</code>
-        <p class="sub" style="margin:7px 0 0">A clip read <span class="n">normal 0.132</span> vs <span class="n">smoke 0.131</span> — a coin flip resolved as silence, forfeiting a whole video. <b>46.4% → 57.4%</b>.</p>
-      </div>
-      <div class="card" style="margin-top:8px">
-        <code>if p1 − p2 &lt; 0.08: let the prompt bank pick between those two</code>
-        <p class="sub" style="margin:7px 0 0">It flipped <span class="n">fire</span>↔<span class="n">smoke</span> on two videos — the exact pair we had flagged as swapped <b>by eye</b>, hours earlier, with no knowledge of any score. <b>57.4% → 64.1%</b>.</p>
-      </div>
+      <h2>The two failures that taught us the most</h2>
+      <ul>
+        <li><b>Run 3 (D3 halved).</b> We shrank intervals to their peak width. D3's real events run 38–125 s, so a tidy span misses them entirely. Lesson: cap the <i>count</i>, don't trim the <i>extent</i> — which became run 8.</li>
+        <li><b>Run 5 (D2 collapsed).</b> Forcing every video to fire cost 8.7 ≈ exactly one video (8.75). That accident revealed run 7: the head's <i>silence</i> on normal footage was worth more than its localisation.</li>
+      </ul>
     </div>
 
     <div>
+      <h2>The cascade, from runs 4–6</h2>
+      <div class="wrap">
+      <table>
+        <tr><th></th><th>normal video</th><th>3 anomalous</th><th>D2</th></tr>
+        <tr><td>head only</td><td class="num up">8.75</td><td class="num">5.25</td><td class="num">14.0</td></tr>
+        <tr><td>onset only</td><td class="num down">0</td><td class="num up">12.6</td><td class="num">12.6</td></tr>
+        <tr><td><b>cascade</b></td><td class="num up">8.75</td><td class="num up">12.6</td><td class="num up"><b>21.3</b></td></tr>
+      </table>
+      </div>
+      <p class="sub" style="margin-top:6px">Neither component could do both jobs. Chaining them collects both.</p>
+
       <h2>What actually found the bugs</h2>
       <ul>
-        <li><b>Looking at the frames.</b> Rendered the frame at the midpoint of every predicted event into one labelled sheet. Ten minutes, four real defects.</li>
-        <li>A 240 s clip called <code>wrong_way_driving</code> six times — it was queued trucks on the far carriageway.</li>
-        <li>A dashcam <b>crash compilation</b> typed <code>stalled_vehicle</code> — the “CAR CRASHES TIME” watermark was in frame.</li>
-        <li>A correct <code>fire</code> call silently destroyed by a later change — caught only by re-rendering.</li>
+        <li><b>Looking at the frames.</b> One labelled contact sheet of every predicted event. Ten minutes, four real defects.</li>
+        <li>A clip called <code>wrong_way_driving</code> ×6 — it was queued trucks on the far carriageway.</li>
+        <li>A dashcam <b>crash compilation</b> typed <code>stalled_vehicle</code> — watermark visible in shot.</li>
+        <li>Run 9 then flipped <code>fire</code>↔<code>smoke</code> on <b>exactly the two clips we'd flagged by eye</b>, from the prompt bank alone.</li>
       </ul>
 
-      <h2>Local validation never predicted the score</h2>
+      <h2>Local validation lied — five times</h2>
       <div class="wrap">
       <table>
-        <tr><th>Local signal</th><th>Said</th><th>Reality</th></tr>
+        <tr><th>Signal</th><th>Said</th><th>Truth</th></tr>
         <tr><td>Marks formula</td><td class="num">29.9</td><td class="num">51.9</td></tr>
         <tr><td>Train accuracy</td><td class="num up">+27</td><td class="num down">−24</td></tr>
-        <tr><td>Val IoU 0.66 → 0.86</td><td class="num up">better</td><td class="num down">worse</td></tr>
-        <tr><td>Cross-val 33% → 58%</td><td class="num up">better</td><td class="num flat">±0</td></tr>
+        <tr><td>Val IoU 0.66→0.86</td><td class="num up">better</td><td class="num down">worse</td></tr>
+        <tr><td>Cross-val 33→58%</td><td class="num up">better</td><td class="num flat">±0</td></tr>
       </table>
       </div>
-      <p class="sub" style="margin-top:8px">Ground truth was revised mid-event, so every cached label was stale. Frame inspection replaced metrics.</p>
-
-      <h2>Why D2 was the hard tier</h2>
-      <div class="wrap">
-      <table>
-        <tr><th>Tier</th><th>Event length</th><th>Must land within</th></tr>
-        <tr><td>D1</td><td class="flat">—</td><td class="flat">null timestamps</td></tr>
-        <tr><td><b>D2</b></td><td class="num">20 s</td><td class="num down"><b>~7 s</b></td></tr>
-        <tr><td>D3</td><td class="num">38–125 s</td><td class="num">13–60 s</td></tr>
-      </table>
-      </div>
-
-      <h2>Rules we held to</h2>
-      <ul>
-        <li><b>Every submission is one full pipeline run</b> — verified by matching all 28 per-video runtimes to the run log.</li>
-        <li><b>No rule fitted to a video.</b> Dropped one worth 11 marks because it meant nothing on unseen footage.</li>
-        <li><b>Reads no labels.</b> Point it at a folder — <span class="n">43× realtime</span>, no config.</li>
-      </ul>
+      <p class="sub" style="margin-top:6px">Ground truth was revised mid-event; every cached label was stale. Pixels don't go stale.</p>
     </div>
   </div>
 </section>
