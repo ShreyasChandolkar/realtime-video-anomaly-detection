@@ -28,6 +28,12 @@ from ahc import features, prompts
 from ahc.live import LiveConfig, LiveWorker
 from ahc.submission import CLASSES
 
+# The console must fire where the submission fires. LiveConfig's own defaults
+# (0.4 / 0.16) are four times less sensitive than the shipped onset thresholds,
+# so a clip scoring 0.126 - which the pipeline reports as an event - showed
+# nothing here at all.
+D3_HI, D3_LO = 0.10, 0.04
+
 VIDEO_SUFFIXES = (".mp4", ".avi", ".mov", ".mkv", ".webm", ".m4v")
 
 PAGE = """<!doctype html><html><head><meta charset="utf-8">
@@ -59,6 +65,10 @@ aside{border-right:1px solid var(--line);overflow-y:auto;padding:10px}
 .v.on{background:#1d283a;color:#fff}
 .v .id{font-family:var(--mono);font-size:12px}
 .v .d{margin-left:auto;font-size:10.5px;color:var(--dim)}
+.v .hit{width:6px;height:6px;border-radius:50%;background:var(--hot);flex-shrink:0}
+.v .miss{width:6px;height:6px;border-radius:50%;background:#2b3240;flex-shrink:0}
+.key{font-size:10.5px;color:var(--dim);padding:4px 8px 8px;display:flex;
+     gap:6px;align-items:center}
 section{display:flex;flex-direction:column;align-items:center;
         justify-content:center;padding:16px;overflow:hidden}
 #shot{max-width:100%;max-height:100%;border-radius:8px;
@@ -108,6 +118,10 @@ const $ = s => document.querySelector(s);
 
 fetch('/api/videos').then(r => r.json()).then(vs => {
   const box = $('#list');
+  const key = document.createElement('div');
+  key.className = 'key';
+  key.innerHTML = '<span class="hit"></span> has detections &nbsp;<span class="miss"></span> none';
+  box.appendChild(key);
   let last = null;
   vs.forEach(v => {
     if (v.level !== last) {
@@ -119,7 +133,10 @@ fetch('/api/videos').then(r => r.json()).then(vs => {
     }
     const d = document.createElement('div');
     d.className = 'v';
-    d.innerHTML = `<span class="id">${v.id}</span><span class="d">${v.dur}</span>`;
+    const hit = v.found && v.found.length;
+    d.innerHTML = `<span class="${hit ? 'hit' : 'miss'}"></span>` +
+      `<span class="id">${v.id}</span><span class="d">${hit ? v.found[0].replace(/_/g,' ').slice(0,18) : v.dur}</span>`;
+    if (hit) d.title = v.found.join(', ');
     d.onclick = () => pick(v.id, d);
     box.appendChild(d);
   });
@@ -185,6 +202,7 @@ class State:
 
     def __init__(self, root: Path, encoder, bank):
         self.root, self.encoder, self.bank = root, encoder, bank
+        self.found: dict[str, list[str]] = {}
         self.worker: LiveWorker | None = None
         self.lock = threading.Lock()
         self.videos = self._scan()
@@ -217,7 +235,7 @@ class State:
             if self.worker:
                 self.worker.stop()
             self.worker = LiveWorker(match["path"], self.encoder, self.bank,
-                                     LiveConfig(loop=False))
+                                     LiveConfig(loop=False, hi=D3_HI, lo=D3_LO))
             self.worker.start()
         return True
 
@@ -244,7 +262,9 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(200, "text/html; charset=utf-8", PAGE.encode())
 
         if u.path == "/api/videos":
-            vs = [{k: v[k] for k in ("id", "level", "dur")} for v in self.state.videos]
+            vs = [{**{k: v[k] for k in ("id", "level", "dur")},
+                   "found": self.state.found.get(v["id"], [])}
+                  for v in self.state.videos]
             return self._send(200, "application/json", json.dumps(vs).encode())
 
         if u.path == "/api/select":
@@ -287,6 +307,9 @@ def main() -> int:
     ap.add_argument("--videos", default="data/ahc/eval")
     ap.add_argument("--encoder", default="google/siglip2-base-patch16-224")
     ap.add_argument("--port", type=int, default=8080)
+    ap.add_argument("--submission", default="",
+                    help="a submission JSON; videos it found events in are "
+                         "marked in the list so a demo need not guess")
     ap.add_argument("--device", default=None)
     a = ap.parse_args()
 
@@ -296,7 +319,17 @@ def main() -> int:
     cache = features.Cache(root / ".ahc_cache", enc.model_id)
     bank = features.encode_prompt_bank(enc, prompts.build(list(CLASSES)), cache)
 
+    found = {}
+    if a.submission and Path(a.submission).exists():
+        sub = json.loads(Path(a.submission).read_text())
+        for pr in sub.get("predictions", []):
+            names = sorted({e["class_name"] for e in pr.get("events", [])})
+            if names:
+                found[pr["video_id"]] = names
+        print(f"{len(found)} videos carry detections in {a.submission}")
+
     st = State(root, enc, bank)
+    st.found = found
     print(f"{len(st.videos)} videos from {root}")
     Handler.state = st
     srv = ThreadingHTTPServer(("0.0.0.0", a.port), Handler)
