@@ -173,6 +173,13 @@ class LiveWorker(threading.Thread):
         self.curve.append((round(t_sec, 2), round(frame.score, 3),
                            round(frame.semantic, 3), round(frame.deviation, 3)))
 
+        arming = None
+        if not self.tracker.on:
+            cand = getattr(self.tracker, "_cand_start", None)
+            if cand is not None:
+                arming = {"held": round(max(t_sec - cand, 0.0), 2),
+                          "need": round(self.tracker.family.min_on_s, 2)}
+
         order = np.argsort(-cls_vec)[:5] if len(cls_vec) else []
         with self._lock:
             self._state = {
@@ -190,6 +197,11 @@ class LiveWorker(threading.Thread):
                 "level1_class": self.level1_cls,
                 "level1_flag": bool(self.level1_max >= self.cfg.level1_threshold),
                 "level1_threshold": self.cfg.level1_threshold,
+                # How close the tracker is to opening an event. The score bar
+                # goes hot on a single frame, but evidence must hold above the
+                # threshold for min_on_s before anything opens - without this the
+                # console looks broken every time a spike fails to persist.
+                "arming": arming,
                 "active": self.active.as_dict() if self.active else None,
                 "events": [e.as_dict() for e in self.events[-25:]],
                 "curve": list(self.curve),

@@ -86,10 +86,21 @@ h2{font:600 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;
 .ev{border:1px solid var(--line);border-left:3px solid var(--key);
     border-radius:6px;padding:8px 10px;margin-bottom:7px;background:var(--panel)}
 .ev.open{border-left-color:var(--hot)}
+.ev.arm{border-left-color:#f3c363;opacity:.85}
+.armbar{height:4px;border-radius:2px;background:#232936;margin-top:6px;overflow:hidden}
+.armbar i{display:block;height:100%;background:#f3c363;width:0}
 .ev .c{font-weight:600;font-size:13px}
 .ev .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-top:2px}
 .none{color:var(--dim);font-size:12.5px}
 canvas{width:100%;height:52px;display:block;margin-top:4px}
+.raw{font-family:var(--mono);font-size:11.5px;width:100%;border-collapse:collapse}
+.raw td{padding:2px 0;border:0}
+.raw td:last-child{text-align:right;color:#fff}
+.raw td:first-child{color:var(--dim)}
+.cls{font-family:var(--mono);font-size:11.5px;display:flex;justify-content:space-between;
+     padding:2px 0}
+.cls b{color:#fff;font-weight:600}
+.cls span:first-child{color:var(--dim)}
 </style></head><body>
 <header>
   <span class="tag">Live</span>
@@ -108,7 +119,11 @@ canvas{width:100%;height:52px;display:block;margin-top:4px}
       <div class="bar"><i id="fill"></i></div>
       <canvas id="curve" width="600" height="52"></canvas>
     </div>
-    <h2>Events detected</h2>
+    <h2>Detector output</h2>
+    <table class="raw" id="raw"></table>
+    <h2 style="margin-top:14px">Class scores</h2>
+    <div id="cls"></div>
+    <h2 style="margin-top:14px">Events detected</h2>
     <div id="events"><p class="none">None yet.</p></div>
   </div>
 </main>
@@ -183,15 +198,44 @@ setInterval(() => {
                        : s.score >= s.lo ? '#6ea8fe' : '#5ed39a';
     draw(s.curve);
 
+    // Exactly what the detector reports, unrounded beyond its own precision.
+    const rows = [
+      ['score (onset)',   s.score],
+      ['semantic',        s.semantic],
+      ['deviation',       s.deviation],
+      ['level1',          s.level1],
+      ['level1 max',      s.level1_max],
+      ['threshold hi',    s.hi],
+      ['threshold lo',    s.lo],
+      ['baseline warm',   s.warm],
+      ['tracker',         s.active ? 'OPEN' : (s.arming ? 'arming' : 'idle')],
+      ['frames at 4 Hz',  s.curve ? s.curve.length : 0],
+    ];
+    $('#raw').innerHTML = rows.map(r =>
+      `<tr><td>${r[0]}</td><td>${typeof r[1] === 'number' ? r[1].toFixed(3) : r[1]}</td></tr>`
+    ).join('');
+
+    $('#cls').innerHTML = (s.top_classes || []).map(c =>
+      `<div class="cls"><span>${c.name.replace(/_/g,' ')}</span><b>${c.p.toFixed(4)}</b></div>`
+    ).join('') || '<p class="none">--</p>';
+
+    let arm = '';
+    if (!s.active && s.arming) {
+      const pct = Math.min(100, s.arming.held / s.arming.need * 100);
+      arm = `<div class="ev arm"><div class="c">confirming\u2026</div>
+        <div class="t">evidence held ${s.arming.held.toFixed(1)}s of
+          ${s.arming.need.toFixed(1)}s needed</div>
+        <div class="armbar"><i style="width:${pct}%"></i></div></div>`;
+    }
     const all = (s.active ? [Object.assign({open: 1}, s.active)] : [])
                 .concat((s.events || []).slice().reverse());
-    $('#events').innerHTML = all.length ? all.map(e => `
+    $('#events').innerHTML = arm + (all.length ? all.map(e => `
       <div class="ev ${e.open ? 'open' : ''}">
         <div class="c">${e.class_name.replace(/_/g, ' ')}</div>
         <div class="t">${e.start.toFixed(1)}s –
           ${e.end === null ? 'ongoing' : e.end.toFixed(1) + 's'}
           · ${e.duration.toFixed(1)}s · peak ${e.peak.toFixed(2)}</div>
-      </div>`).join('') : '<p class="none">None yet.</p>';
+      </div>`).join('') : (arm ? '' : '<p class="none">None yet.</p>'));
   });
 }, 400);
 </script></body></html>"""
