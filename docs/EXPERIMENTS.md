@@ -162,6 +162,30 @@ Two of those observations were later reproduced *independently by the pipeline*:
 run 9's tie-break flipped `fire`/`smoke` on exactly the two clips we had flagged
 by eye, from the prompt bank alone, with no knowledge of any score.
 
+## The scorer moved under us
+
+Partway through, the organisers introduced **false-positive penalties**. This is
+not a footnote — it invalidates any comparison across that boundary, and we
+briefly drew a wrong conclusion from it:
+
+- `eval_tie` scored **55.3**, then **50.9** on re-upload. Same file, same
+  detections, same everything.
+- We had already attributed a 0.8-mark drop to reworded explanations. Wrong: the
+  reworded file and the original scored *identically* (50.9) once both were
+  measured under the new rules. The text never mattered.
+
+Under the new scoring the ranking inverts. Fewer, more confident events win:
+
+| Run | D3 false alarms | Marks |
+|---|---|---|
+| `eval_tie` (8 D3 events) | 6 | 50.9 |
+| `eval_d3head` | — | 51.7 |
+| `eval_d3cap1` (4 D3 events) | **2** | **54.2** |
+
+The lesson we would carry forward: when a benchmark can change beneath you,
+re-measure the baseline before believing any delta. We compared against a number
+that no longer existed.
+
 ## The pattern
 
 Every gain came from a **routing rule** — which component is allowed to speak,

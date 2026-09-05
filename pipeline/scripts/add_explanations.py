@@ -90,24 +90,22 @@ def explain_measured(cls, start, end, times, arr, names, cm) -> str:
     t_peak = float(times[idx[k]])
     rise = float(onset[k])
 
-    # Runner-up among the *other* classes, by name rather than by juggling
-    # indices after a delete - the previous version could name the wrong class.
+    # An earlier note here claimed the wording was worth 0.8 marks. That was
+    # wrong: the organisers introduced false-positive penalties partway through,
+    # and re-uploading the identical file afterwards scored the same as the
+    # reworded one. The scoring changed, not the text. Recorded because the
+    # mistake was reading a moving scorer as an effect of our own change.
     lead = ""
     try:
         j = names.index(cls)
         row = cm[idx[k]]
-        others = [(float(row[i]), names[i]) for i in range(len(names)) if i != j]
-        if others:
-            best_other, runner = max(others)
-            gap = float(row[j]) - best_other
-            if gap > 0:
-                lead = (f" It leads the next-closest class "
-                        f"({humanise(runner)}) by {gap:.3f}")
-            else:
-                # The detector and the prompt bank disagree. Say so plainly -
-                # the timing is the confident part, the label is not.
-                lead = (f" The prompt bank ranks {humanise(runner)} slightly "
-                        f"higher here, so the timing is firmer than the label")
+        other = float(np.max(np.delete(row, j)))
+        runner = names[int(np.argmax(np.delete(row, j)) +
+                           (1 if int(np.argmax(np.delete(row, j))) >= j else 0))]
+        gap = float(row[j]) - other
+        lead = (f" It leads the next class ({humanise(runner)}) by {gap:.3f}"
+                if gap > 0 else
+                f" Margin over {humanise(runner)} is thin ({gap:+.3f}), so the class is the less certain part")
     except (ValueError, IndexError):
         pass
 

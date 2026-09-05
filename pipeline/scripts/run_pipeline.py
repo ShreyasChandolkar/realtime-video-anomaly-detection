@@ -185,6 +185,17 @@ def main() -> int:
                     help="max intervals per D2 video in cascade mode. Separate "
                          "from --d3-cap: the two tiers have different event "
                          "densities and must be capped independently")
+    ap.add_argument("--d3-rank", default="duration", choices=("duration", "head"),
+                    help="how to choose which D3 intervals survive the cap. "
+                         "'duration' keeps the longest; 'head' asks the temporal "
+                         "head how anomalous each proposal is - the same "
+                         "specialist split that took D2 from 14.0 to 21.3")
+    ap.add_argument("--d3-keep", type=float, default=0.0,
+                    help="keep every D3 interval whose peak reaches this "
+                         "fraction of the video's own strongest peak, instead "
+                         "of a fixed count. A fixed cap cannot be right for "
+                         "both a crash compilation holding five short events "
+                         "and a quiet camera holding one")
     ap.add_argument("--d3-cap", type=int, default=D3_CAP,
                     help="max intervals kept per long video")
     ap.add_argument("--merge-gap", type=float, default=0.0,
@@ -444,6 +455,21 @@ def main() -> int:
                 top = max(peak(e) for e in found)
                 found = [e for e in found if peak(e) >= PEAK_KEEP_FRACTION * top]
                 found = sorted(found, key=peak, reverse=True)[:a.d3_cap]
+            elif a.d3_rank == "head" and head is not None:
+                # Onset proposes, the head disposes. Duration is a property of
+                # the proposal; how anomalous it looks is an independent opinion,
+                # and on D2 that second opinion was worth 7.3 marks.
+                pa_h, _ = head.score(emb)
+                def conf(ev):
+                    mm = (times >= ev.start) & (times <= ev.end)
+                    return float(pa_h[mm].mean()) if mm.any() else 0.0
+                found = sorted(found, key=conf, reverse=True)[:a.d3_cap]
+            elif a.d3_keep > 0 and found:
+                pk = lambda ev: (float(sc_v[(sc_t >= ev.start) & (sc_t <= ev.end)].max())
+                                 if ((sc_t >= ev.start) & (sc_t <= ev.end)).any() else 0.0)
+                top = max(pk(e) for e in found)
+                found = [e for e in found if pk(e) >= a.d3_keep * top]
+                found = sorted(found, key=pk, reverse=True)[:6]
             else:
                 found = sorted(found, key=lambda e: -(e.end - e.start))[:a.d3_cap]
             for e in sorted(found, key=lambda e: e.start):
@@ -473,8 +499,6 @@ def main() -> int:
         if a.explain:
             from scripts.add_explanations import explain, explain_measured
             for e in events:
-                # Ground the sentence in this run's own measurements where the
-                # event has a timespan; a Difficulty 1 clip has none to report.
                 txt = (explain_measured(e.class_name, e.start, e.end,
                                         arr["t"], arr, names, cm)
                        if e.start is not None

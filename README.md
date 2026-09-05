@@ -43,7 +43,7 @@ realtime.
 | `pipeline/` | the complete system — `ahc/` + `scripts/` + both checkpoints |
 | `pipeline/head_corrected.pt` | temporal head, retrained after 108 mislabelled clips were fixed |
 | `pipeline/d1_probe.npz` | linear probe, 12 classes (11 + normal) |
-| `best_submission_58.8.json` | the exact file this scored on |
+| `best_submission_55.3.json` | the exact file this scored on |
 | `docs/slides.html` · `slides.pdf` · `AHC_slides.pptx` | two-slide presentation |
 | `docs/REPO_README.md` | architecture and negative results |
 | `docs/anything-else.md` | limitations, deployment, what we would do next |
@@ -56,7 +56,7 @@ than asserted: each prediction carries a wall-clock time measured inside the
 loop, and all 28 match the run log line for line.
 
 ```
-eval_final2.json: 28/28 per-video runtimes match the log | 10,066 frames encoded
+eval_tie.json: 28/28 per-video runtimes match the log | 10,066 frames encoded
 ```
 
 We also dropped a rule worth 11 marks on the earlier public pack ("keep the last

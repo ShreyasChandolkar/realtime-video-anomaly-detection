@@ -3,7 +3,7 @@
   "submission_id": "run",
   "model_name": "siglip2-onset-cascade",
   "run_metadata": {
-    "total_wall_time_ms": 125275.9,
+    "total_wall_time_ms": 130063.0,
     "max_parallel_videos": 1,
     "hardware": "cuda"
   },
@@ -21,16 +21,16 @@
       "runtime_metadata": {
         "frames_processed": 23,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 526.6,
+        "end_to_end_internal_time_ms": 534.7,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 22.9,
-            "average_time_ms": 22.9,
-            "p50_time_ms": 22.9,
-            "p95_time_ms": 22.9,
-            "max_time_ms": 22.9
+            "total_time_ms": 23.2,
+            "average_time_ms": 23.2,
+            "p50_time_ms": 23.2,
+            "p95_time_ms": 23.2,
+            "max_time_ms": 23.2
           }
         ]
       }
@@ -48,16 +48,16 @@
       "runtime_metadata": {
         "frames_processed": 18,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 128.3,
+        "end_to_end_internal_time_ms": 122.8,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 7.1,
-            "average_time_ms": 7.1,
-            "p50_time_ms": 7.1,
-            "p95_time_ms": 7.1,
-            "max_time_ms": 7.1
+            "total_time_ms": 6.8,
+            "average_time_ms": 6.8,
+            "p50_time_ms": 6.8,
+            "p95_time_ms": 6.8,
+            "max_time_ms": 6.8
           }
         ]
       }
@@ -68,16 +68,16 @@
       "runtime_metadata": {
         "frames_processed": 68,
         "chunks_processed": 2,
-        "end_to_end_internal_time_ms": 514.5,
+        "end_to_end_internal_time_ms": 538.4,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 7.6,
-            "average_time_ms": 7.6,
-            "p50_time_ms": 7.6,
-            "p95_time_ms": 7.6,
-            "max_time_ms": 7.6
+            "total_time_ms": 7.9,
+            "average_time_ms": 7.9,
+            "p50_time_ms": 7.9,
+            "p95_time_ms": 7.9,
+            "max_time_ms": 7.9
           }
         ]
       }
@@ -95,16 +95,16 @@
       "runtime_metadata": {
         "frames_processed": 23,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 198.3,
+        "end_to_end_internal_time_ms": 202.3,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.6,
-            "average_time_ms": 8.6,
-            "p50_time_ms": 8.6,
-            "p95_time_ms": 8.6,
-            "max_time_ms": 8.6
+            "total_time_ms": 8.8,
+            "average_time_ms": 8.8,
+            "p50_time_ms": 8.8,
+            "p95_time_ms": 8.8,
+            "max_time_ms": 8.8
           }
         ]
       }
@@ -122,16 +122,16 @@
       "runtime_metadata": {
         "frames_processed": 28,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 225.7,
+        "end_to_end_internal_time_ms": 191.6,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.1,
-            "average_time_ms": 8.1,
-            "p50_time_ms": 8.1,
-            "p95_time_ms": 8.1,
-            "max_time_ms": 8.1
+            "total_time_ms": 6.8,
+            "average_time_ms": 6.8,
+            "p50_time_ms": 6.8,
+            "p95_time_ms": 6.8,
+            "max_time_ms": 6.8
           }
         ]
       }
@@ -149,16 +149,16 @@
       "runtime_metadata": {
         "frames_processed": 23,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 203.8,
+        "end_to_end_internal_time_ms": 221.9,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.9,
-            "average_time_ms": 8.9,
-            "p50_time_ms": 8.9,
-            "p95_time_ms": 8.9,
-            "max_time_ms": 8.9
+            "total_time_ms": 9.6,
+            "average_time_ms": 9.6,
+            "p50_time_ms": 9.6,
+            "p95_time_ms": 9.6,
+            "max_time_ms": 9.6
           }
         ]
       }
@@ -176,16 +176,16 @@
       "runtime_metadata": {
         "frames_processed": 57,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 490.3,
+        "end_to_end_internal_time_ms": 509.1,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.6,
-            "average_time_ms": 8.6,
-            "p50_time_ms": 8.6,
-            "p95_time_ms": 8.6,
-            "max_time_ms": 8.6
+            "total_time_ms": 8.9,
+            "average_time_ms": 8.9,
+            "p50_time_ms": 8.9,
+            "p95_time_ms": 8.9,
+            "max_time_ms": 8.9
           }
         ]
       }
@@ -203,16 +203,16 @@
       "runtime_metadata": {
         "frames_processed": 30,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 250.1,
+        "end_to_end_internal_time_ms": 277.9,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.3,
-            "average_time_ms": 8.3,
-            "p50_time_ms": 8.3,
-            "p95_time_ms": 8.3,
-            "max_time_ms": 8.3
+            "total_time_ms": 9.3,
+            "average_time_ms": 9.3,
+            "p50_time_ms": 9.3,
+            "p95_time_ms": 9.3,
+            "max_time_ms": 9.3
           }
         ]
       }
@@ -230,16 +230,16 @@
       "runtime_metadata": {
         "frames_processed": 24,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 194.1,
+        "end_to_end_internal_time_ms": 205.8,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.1,
-            "average_time_ms": 8.1,
-            "p50_time_ms": 8.1,
-            "p95_time_ms": 8.1,
-            "max_time_ms": 8.1
+            "total_time_ms": 8.6,
+            "average_time_ms": 8.6,
+            "p50_time_ms": 8.6,
+            "p95_time_ms": 8.6,
+            "max_time_ms": 8.6
           }
         ]
       }
@@ -257,7 +257,7 @@
       "runtime_metadata": {
         "frames_processed": 24,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 202.4,
+        "end_to_end_internal_time_ms": 202.3,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
@@ -284,16 +284,16 @@
       "runtime_metadata": {
         "frames_processed": 23,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 195.9,
+        "end_to_end_internal_time_ms": 205.9,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.5,
-            "average_time_ms": 8.5,
-            "p50_time_ms": 8.5,
-            "p95_time_ms": 8.5,
-            "max_time_ms": 8.5
+            "total_time_ms": 9.0,
+            "average_time_ms": 9.0,
+            "p50_time_ms": 9.0,
+            "p95_time_ms": 9.0,
+            "max_time_ms": 9.0
           }
         ]
       }
@@ -311,16 +311,16 @@
       "runtime_metadata": {
         "frames_processed": 24,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 218.4,
+        "end_to_end_internal_time_ms": 212.2,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 9.1,
-            "average_time_ms": 9.1,
-            "p50_time_ms": 9.1,
-            "p95_time_ms": 9.1,
-            "max_time_ms": 9.1
+            "total_time_ms": 8.8,
+            "average_time_ms": 8.8,
+            "p50_time_ms": 8.8,
+            "p95_time_ms": 8.8,
+            "max_time_ms": 8.8
           }
         ]
       }
@@ -338,16 +338,16 @@
       "runtime_metadata": {
         "frames_processed": 23,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 202.3,
+        "end_to_end_internal_time_ms": 210.8,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.8,
-            "average_time_ms": 8.8,
-            "p50_time_ms": 8.8,
-            "p95_time_ms": 8.8,
-            "max_time_ms": 8.8
+            "total_time_ms": 9.2,
+            "average_time_ms": 9.2,
+            "p50_time_ms": 9.2,
+            "p95_time_ms": 9.2,
+            "max_time_ms": 9.2
           }
         ]
       }
@@ -365,16 +365,16 @@
       "runtime_metadata": {
         "frames_processed": 35,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 292.5,
+        "end_to_end_internal_time_ms": 297.6,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.4,
-            "average_time_ms": 8.4,
-            "p50_time_ms": 8.4,
-            "p95_time_ms": 8.4,
-            "max_time_ms": 8.4
+            "total_time_ms": 8.5,
+            "average_time_ms": 8.5,
+            "p50_time_ms": 8.5,
+            "p95_time_ms": 8.5,
+            "max_time_ms": 8.5
           }
         ]
       }
@@ -392,16 +392,16 @@
       "runtime_metadata": {
         "frames_processed": 47,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 378.1,
+        "end_to_end_internal_time_ms": 390.2,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.0,
-            "average_time_ms": 8.0,
-            "p50_time_ms": 8.0,
-            "p95_time_ms": 8.0,
-            "max_time_ms": 8.0
+            "total_time_ms": 8.3,
+            "average_time_ms": 8.3,
+            "p50_time_ms": 8.3,
+            "p95_time_ms": 8.3,
+            "max_time_ms": 8.3
           }
         ]
       }
@@ -419,16 +419,16 @@
       "runtime_metadata": {
         "frames_processed": 61,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 480.4,
+        "end_to_end_internal_time_ms": 505.4,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 7.9,
-            "average_time_ms": 7.9,
-            "p50_time_ms": 7.9,
-            "p95_time_ms": 7.9,
-            "max_time_ms": 7.9
+            "total_time_ms": 8.3,
+            "average_time_ms": 8.3,
+            "p50_time_ms": 8.3,
+            "p95_time_ms": 8.3,
+            "max_time_ms": 8.3
           }
         ]
       }
@@ -446,16 +446,16 @@
       "runtime_metadata": {
         "frames_processed": 113,
         "chunks_processed": 3,
-        "end_to_end_internal_time_ms": 808.3,
+        "end_to_end_internal_time_ms": 835.9,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 7.2,
-            "average_time_ms": 7.2,
-            "p50_time_ms": 7.2,
-            "p95_time_ms": 7.2,
-            "max_time_ms": 7.2
+            "total_time_ms": 7.4,
+            "average_time_ms": 7.4,
+            "p50_time_ms": 7.4,
+            "p95_time_ms": 7.4,
+            "max_time_ms": 7.4
           }
         ]
       }
@@ -473,16 +473,16 @@
       "runtime_metadata": {
         "frames_processed": 113,
         "chunks_processed": 3,
-        "end_to_end_internal_time_ms": 795.3,
+        "end_to_end_internal_time_ms": 838.8,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 7.0,
-            "average_time_ms": 7.0,
-            "p50_time_ms": 7.0,
-            "p95_time_ms": 7.0,
-            "max_time_ms": 7.0
+            "total_time_ms": 7.4,
+            "average_time_ms": 7.4,
+            "p50_time_ms": 7.4,
+            "p95_time_ms": 7.4,
+            "max_time_ms": 7.4
           }
         ]
       }
@@ -500,16 +500,16 @@
       "runtime_metadata": {
         "frames_processed": 38,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 358.0,
+        "end_to_end_internal_time_ms": 372.8,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 9.4,
-            "average_time_ms": 9.4,
-            "p50_time_ms": 9.4,
-            "p95_time_ms": 9.4,
-            "max_time_ms": 9.4
+            "total_time_ms": 9.8,
+            "average_time_ms": 9.8,
+            "p50_time_ms": 9.8,
+            "p95_time_ms": 9.8,
+            "max_time_ms": 9.8
           }
         ]
       }
@@ -527,16 +527,16 @@
       "runtime_metadata": {
         "frames_processed": 38,
         "chunks_processed": 1,
-        "end_to_end_internal_time_ms": 345.2,
+        "end_to_end_internal_time_ms": 349.2,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 9.1,
-            "average_time_ms": 9.1,
-            "p50_time_ms": 9.1,
-            "p95_time_ms": 9.1,
-            "max_time_ms": 9.1
+            "total_time_ms": 9.2,
+            "average_time_ms": 9.2,
+            "p50_time_ms": 9.2,
+            "p95_time_ms": 9.2,
+            "max_time_ms": 9.2
           }
         ]
       }
@@ -548,156 +548,25 @@
           "class_name": "traffic_congestion",
           "start_time_sec": 23.76,
           "end_time_sec": 33.36,
-          "explanation": "Evidence for traffic congestion peaks at 25s, +0.197 above this camera's own rolling baseline, and stays raised for 10s across 41 sampled frames: vehicles are densely queued and moving slowly across the carriageway. It leads the next-closest class (traffic accident) by 0.321."
+          "explanation": "Evidence for traffic congestion peaks at 25s, +0.197 above this camera's own rolling baseline, and stays raised for 10s across 41 sampled frames: vehicles are densely queued and moving slowly across the carriageway. It leads the next class (traffic accident) by 0.321."
         },
         {
           "class_name": "traffic_congestion",
           "start_time_sec": 103.68,
           "end_time_sec": 120.0,
-          "explanation": "Evidence for traffic congestion peaks at 118s, +0.333 above this camera's own rolling baseline, and stays raised for 16s across 69 sampled frames: vehicles are densely queued and moving slowly across the carriageway. It leads the next-closest class (traffic accident) by 0.368."
+          "explanation": "Evidence for traffic congestion peaks at 118s, +0.333 above this camera's own rolling baseline, and stays raised for 16s across 69 sampled frames: vehicles are densely queued and moving slowly across the carriageway. It leads the next class (traffic accident) by 0.368."
         },
         {
           "class_name": "traffic_congestion",
           "start_time_sec": 151.44,
           "end_time_sec": 239.76,
-          "explanation": "Evidence for traffic congestion peaks at 186s, +0.301 above this camera's own rolling baseline, and stays raised for 88s across 369 sampled frames: vehicles are densely queued and moving slowly across the carriageway. It leads the next-closest class (traffic accident) by 0.363."
+          "explanation": "Evidence for traffic congestion peaks at 186s, +0.301 above this camera's own rolling baseline, and stays raised for 88s across 369 sampled frames: vehicles are densely queued and moving slowly across the carriageway. It leads the next class (traffic accident) by 0.363."
         }
       ],
       "runtime_metadata": {
         "frames_processed": 1000,
         "chunks_processed": 31,
-        "end_to_end_internal_time_ms": 9259.2,
-        "model_runtimes": [
-          {
-            "model_name": "vision-encoder",
-            "call_count": 1,
-            "total_time_ms": 9.3,
-            "average_time_ms": 9.3,
-            "p50_time_ms": 9.3,
-            "p95_time_ms": 9.3,
-            "max_time_ms": 9.3
-          }
-        ]
-      }
-    },
-    {
-      "video_id": "E022",
-      "events": [
-        {
-          "class_name": "wrong_way_driving",
-          "start_time_sec": 5.28,
-          "end_time_sec": 27.36,
-          "explanation": "Evidence for wrong way driving peaks at 24s, +2.222 above this camera's own rolling baseline, and stays raised for 22s across 93 sampled frames: a vehicle travels against the prevailing direction of the surrounding traffic. The prompt bank ranks traffic accident slightly higher here, so the timing is firmer than the label."
-        },
-        {
-          "class_name": "traffic_accident",
-          "start_time_sec": 130.08,
-          "end_time_sec": 175.2,
-          "explanation": "Evidence for traffic accident peaks at 149s, +1.901 above this camera's own rolling baseline, and stays raised for 45s across 189 sampled frames: vehicle trajectories converge abruptly and traffic behind comes to a halt. It leads the next-closest class (stalled or broken down vehicle) by 0.179."
-        },
-        {
-          "class_name": "fire",
-          "start_time_sec": 195.12,
-          "end_time_sec": 235.2,
-          "explanation": "Evidence for fire peaks at 233s, +1.371 above this camera's own rolling baseline, and stays raised for 40s across 168 sampled frames: open flame is visible in the scene. It leads the next-closest class (smoke) by 0.546."
-        }
-      ],
-      "runtime_metadata": {
-        "frames_processed": 1000,
-        "chunks_processed": 31,
-        "end_to_end_internal_time_ms": 10596.9,
-        "model_runtimes": [
-          {
-            "model_name": "vision-encoder",
-            "call_count": 1,
-            "total_time_ms": 10.6,
-            "average_time_ms": 10.6,
-            "p50_time_ms": 10.6,
-            "p95_time_ms": 10.6,
-            "max_time_ms": 10.6
-          }
-        ]
-      }
-    },
-    {
-      "video_id": "E023",
-      "events": [
-        {
-          "class_name": "traffic_congestion",
-          "start_time_sec": 20.64,
-          "end_time_sec": 55.2,
-          "explanation": "Evidence for traffic congestion peaks at 39s, +0.760 above this camera's own rolling baseline, and stays raised for 35s across 145 sampled frames: vehicles are densely queued and moving slowly across the carriageway. The prompt bank ranks waterlogging or flood slightly higher here, so the timing is firmer than the label."
-        },
-        {
-          "class_name": "traffic_congestion",
-          "start_time_sec": 60.0,
-          "end_time_sec": 105.12,
-          "explanation": "Evidence for traffic congestion peaks at 68s, +0.607 above this camera's own rolling baseline, and stays raised for 45s across 189 sampled frames: vehicles are densely queued and moving slowly across the carriageway. The prompt bank ranks waterlogging or flood slightly higher here, so the timing is firmer than the label."
-        },
-        {
-          "class_name": "traffic_congestion",
-          "start_time_sec": 178.56,
-          "end_time_sec": 220.08,
-          "explanation": "Evidence for traffic congestion peaks at 181s, +0.394 above this camera's own rolling baseline, and stays raised for 42s across 174 sampled frames: vehicles are densely queued and moving slowly across the carriageway. It leads the next-closest class (traffic accident) by 0.204."
-        }
-      ],
-      "runtime_metadata": {
-        "frames_processed": 1000,
-        "chunks_processed": 31,
-        "end_to_end_internal_time_ms": 10571.1,
-        "model_runtimes": [
-          {
-            "model_name": "vision-encoder",
-            "call_count": 1,
-            "total_time_ms": 10.6,
-            "average_time_ms": 10.6,
-            "p50_time_ms": 10.6,
-            "p95_time_ms": 10.6,
-            "max_time_ms": 10.6
-          }
-        ]
-      }
-    },
-    {
-      "video_id": "E024",
-      "events": [],
-      "runtime_metadata": {
-        "frames_processed": 1028,
-        "chunks_processed": 32,
-        "end_to_end_internal_time_ms": 32272.3,
-        "model_runtimes": [
-          {
-            "model_name": "vision-encoder",
-            "call_count": 1,
-            "total_time_ms": 31.4,
-            "average_time_ms": 31.4,
-            "p50_time_ms": 31.4,
-            "p95_time_ms": 31.4,
-            "max_time_ms": 31.4
-          }
-        ]
-      }
-    },
-    {
-      "video_id": "E025",
-      "events": [
-        {
-          "class_name": "stalled_or_broken_down_vehicle",
-          "start_time_sec": 8.533,
-          "end_time_sec": 75.733,
-          "explanation": "Evidence for stalled or broken down vehicle peaks at 13s, +0.508 above this camera's own rolling baseline, and stays raised for 67s across 253 sampled frames: a vehicle remains stationary in a running traffic lane rather than a lay-by. It leads the next-closest class (wrong way driving) by 0.094."
-        },
-        {
-          "class_name": "stalled_or_broken_down_vehicle",
-          "start_time_sec": 118.133,
-          "end_time_sec": 295.733,
-          "explanation": "Evidence for stalled or broken down vehicle peaks at 157s, +0.524 above this camera's own rolling baseline, and stays raised for 178s across 667 sampled frames: a vehicle remains stationary in a running traffic lane rather than a lay-by. It leads the next-closest class (traffic accident) by 0.181."
-        }
-      ],
-      "runtime_metadata": {
-        "frames_processed": 1350,
-        "chunks_processed": 42,
-        "end_to_end_internal_time_ms": 12994.6,
+        "end_to_end_internal_time_ms": 9589.8,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
@@ -712,25 +581,156 @@
       }
     },
     {
+      "video_id": "E022",
+      "events": [
+        {
+          "class_name": "wrong_way_driving",
+          "start_time_sec": 5.28,
+          "end_time_sec": 27.36,
+          "explanation": "Evidence for wrong way driving peaks at 24s, +2.222 above this camera's own rolling baseline, and stays raised for 22s across 93 sampled frames: a vehicle travels against the prevailing direction of the surrounding traffic. Margin over traffic accident is thin (-0.337), so the class is the less certain part."
+        },
+        {
+          "class_name": "traffic_accident",
+          "start_time_sec": 130.08,
+          "end_time_sec": 175.2,
+          "explanation": "Evidence for traffic accident peaks at 149s, +1.901 above this camera's own rolling baseline, and stays raised for 45s across 189 sampled frames: vehicle trajectories converge abruptly and traffic behind comes to a halt. It leads the next class (stalled or broken down vehicle) by 0.179."
+        },
+        {
+          "class_name": "fire",
+          "start_time_sec": 195.12,
+          "end_time_sec": 235.2,
+          "explanation": "Evidence for fire peaks at 233s, +1.371 above this camera's own rolling baseline, and stays raised for 40s across 168 sampled frames: open flame is visible in the scene. It leads the next class (smoke) by 0.546."
+        }
+      ],
+      "runtime_metadata": {
+        "frames_processed": 1000,
+        "chunks_processed": 31,
+        "end_to_end_internal_time_ms": 12901.2,
+        "model_runtimes": [
+          {
+            "model_name": "vision-encoder",
+            "call_count": 1,
+            "total_time_ms": 12.9,
+            "average_time_ms": 12.9,
+            "p50_time_ms": 12.9,
+            "p95_time_ms": 12.9,
+            "max_time_ms": 12.9
+          }
+        ]
+      }
+    },
+    {
+      "video_id": "E023",
+      "events": [
+        {
+          "class_name": "traffic_congestion",
+          "start_time_sec": 20.64,
+          "end_time_sec": 55.2,
+          "explanation": "Evidence for traffic congestion peaks at 39s, +0.760 above this camera's own rolling baseline, and stays raised for 35s across 145 sampled frames: vehicles are densely queued and moving slowly across the carriageway. Margin over waterlogging or flood is thin (-0.283), so the class is the less certain part."
+        },
+        {
+          "class_name": "traffic_congestion",
+          "start_time_sec": 60.0,
+          "end_time_sec": 105.12,
+          "explanation": "Evidence for traffic congestion peaks at 68s, +0.607 above this camera's own rolling baseline, and stays raised for 45s across 189 sampled frames: vehicles are densely queued and moving slowly across the carriageway. Margin over waterlogging or flood is thin (-0.168), so the class is the less certain part."
+        },
+        {
+          "class_name": "traffic_congestion",
+          "start_time_sec": 178.56,
+          "end_time_sec": 220.08,
+          "explanation": "Evidence for traffic congestion peaks at 181s, +0.394 above this camera's own rolling baseline, and stays raised for 42s across 174 sampled frames: vehicles are densely queued and moving slowly across the carriageway. It leads the next class (traffic accident) by 0.204."
+        }
+      ],
+      "runtime_metadata": {
+        "frames_processed": 1000,
+        "chunks_processed": 31,
+        "end_to_end_internal_time_ms": 11171.3,
+        "model_runtimes": [
+          {
+            "model_name": "vision-encoder",
+            "call_count": 1,
+            "total_time_ms": 11.2,
+            "average_time_ms": 11.2,
+            "p50_time_ms": 11.2,
+            "p95_time_ms": 11.2,
+            "max_time_ms": 11.2
+          }
+        ]
+      }
+    },
+    {
+      "video_id": "E024",
+      "events": [],
+      "runtime_metadata": {
+        "frames_processed": 1028,
+        "chunks_processed": 32,
+        "end_to_end_internal_time_ms": 32641.4,
+        "model_runtimes": [
+          {
+            "model_name": "vision-encoder",
+            "call_count": 1,
+            "total_time_ms": 31.8,
+            "average_time_ms": 31.8,
+            "p50_time_ms": 31.8,
+            "p95_time_ms": 31.8,
+            "max_time_ms": 31.8
+          }
+        ]
+      }
+    },
+    {
+      "video_id": "E025",
+      "events": [
+        {
+          "class_name": "stalled_or_broken_down_vehicle",
+          "start_time_sec": 8.533,
+          "end_time_sec": 75.733,
+          "explanation": "Evidence for stalled or broken down vehicle peaks at 13s, +0.508 above this camera's own rolling baseline, and stays raised for 67s across 253 sampled frames: a vehicle remains stationary in a running traffic lane rather than a lay-by. It leads the next class (wrong way driving) by 0.094."
+        },
+        {
+          "class_name": "stalled_or_broken_down_vehicle",
+          "start_time_sec": 118.133,
+          "end_time_sec": 295.733,
+          "explanation": "Evidence for stalled or broken down vehicle peaks at 157s, +0.524 above this camera's own rolling baseline, and stays raised for 178s across 667 sampled frames: a vehicle remains stationary in a running traffic lane rather than a lay-by. It leads the next class (traffic accident) by 0.181."
+        }
+      ],
+      "runtime_metadata": {
+        "frames_processed": 1350,
+        "chunks_processed": 42,
+        "end_to_end_internal_time_ms": 13272.7,
+        "model_runtimes": [
+          {
+            "model_name": "vision-encoder",
+            "call_count": 1,
+            "total_time_ms": 9.8,
+            "average_time_ms": 9.8,
+            "p50_time_ms": 9.8,
+            "p95_time_ms": 9.8,
+            "max_time_ms": 9.8
+          }
+        ]
+      }
+    },
+    {
       "video_id": "E026",
       "events": [
         {
           "class_name": "loitering_or_suspicious_presence",
           "start_time_sec": 57.6,
           "end_time_sec": 108.267,
-          "explanation": "Evidence for loitering or suspicious presence peaks at 102s, +0.397 above this camera's own rolling baseline, and stays raised for 51s across 96 sampled frames: a person remains in place while the rest of the scene moves on around them. The prompt bank ranks wrong way driving slightly higher here, so the timing is firmer than the label."
+          "explanation": "Evidence for loitering or suspicious presence peaks at 102s, +0.397 above this camera's own rolling baseline, and stays raised for 51s across 96 sampled frames: a person remains in place while the rest of the scene moves on around them. Margin over wrong way driving is thin (-0.175), so the class is the less certain part."
         },
         {
           "class_name": "loitering_or_suspicious_presence",
           "start_time_sec": 213.867,
           "end_time_sec": 260.8,
-          "explanation": "Evidence for loitering or suspicious presence peaks at 249s, +0.748 above this camera's own rolling baseline, and stays raised for 47s across 89 sampled frames: a person remains in place while the rest of the scene moves on around them. The prompt bank ranks wrong way driving slightly higher here, so the timing is firmer than the label."
+          "explanation": "Evidence for loitering or suspicious presence peaks at 249s, +0.748 above this camera's own rolling baseline, and stays raised for 47s across 89 sampled frames: a person remains in place while the rest of the scene moves on around them. Margin over wrong way driving is thin (-0.242), so the class is the less certain part."
         }
       ],
       "runtime_metadata": {
         "frames_processed": 613,
         "chunks_processed": 19,
-        "end_to_end_internal_time_ms": 5574.0,
+        "end_to_end_internal_time_ms": 5554.8,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
@@ -751,28 +751,28 @@
           "class_name": "traffic_accident",
           "start_time_sec": 7.241,
           "end_time_sec": 330.964,
-          "explanation": "Evidence for traffic accident peaks at 23s, +1.607 above this camera's own rolling baseline, and stays raised for 324s across 1387 sampled frames: vehicle trajectories converge abruptly and traffic behind comes to a halt. The prompt bank ranks stalled or broken down vehicle slightly higher here, so the timing is firmer than the label."
+          "explanation": "Evidence for traffic accident peaks at 23s, +1.607 above this camera's own rolling baseline, and stays raised for 324s across 1387 sampled frames: vehicle trajectories converge abruptly and traffic behind comes to a halt. Margin over stalled or broken down vehicle is thin (-0.244), so the class is the less certain part."
         },
         {
           "class_name": "traffic_accident",
           "start_time_sec": 421.588,
           "end_time_sec": 462.462,
-          "explanation": "Evidence for traffic accident peaks at 457s, +0.600 above this camera's own rolling baseline, and stays raised for 41s across 176 sampled frames: vehicle trajectories converge abruptly and traffic behind comes to a halt. The prompt bank ranks stalled or broken down vehicle slightly higher here, so the timing is firmer than the label."
+          "explanation": "Evidence for traffic accident peaks at 457s, +0.600 above this camera's own rolling baseline, and stays raised for 41s across 176 sampled frames: vehicle trajectories converge abruptly and traffic behind comes to a halt. Margin over stalled or broken down vehicle is thin (-0.239), so the class is the less certain part."
         }
       ],
       "runtime_metadata": {
         "frames_processed": 2580,
         "chunks_processed": 80,
-        "end_to_end_internal_time_ms": 31069.2,
+        "end_to_end_internal_time_ms": 31291.6,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 12.0,
-            "average_time_ms": 12.0,
-            "p50_time_ms": 12.0,
-            "p95_time_ms": 12.0,
-            "max_time_ms": 12.0
+            "total_time_ms": 12.1,
+            "average_time_ms": 12.1,
+            "p50_time_ms": 12.1,
+            "p95_time_ms": 12.1,
+            "max_time_ms": 12.1
           }
         ]
       }
@@ -784,28 +784,28 @@
           "class_name": "loitering_or_suspicious_presence",
           "start_time_sec": 4.267,
           "end_time_sec": 88.533,
-          "explanation": "Evidence for loitering or suspicious presence peaks at 39s, +0.832 above this camera's own rolling baseline, and stays raised for 84s across 159 sampled frames: a person remains in place while the rest of the scene moves on around them. The prompt bank ranks stalled or broken down vehicle slightly higher here, so the timing is firmer than the label."
+          "explanation": "Evidence for loitering or suspicious presence peaks at 39s, +0.832 above this camera's own rolling baseline, and stays raised for 84s across 159 sampled frames: a person remains in place while the rest of the scene moves on around them. Margin over stalled or broken down vehicle is thin (-0.127), so the class is the less certain part."
         },
         {
           "class_name": "road_spill_or_debris",
           "start_time_sec": 150.4,
           "end_time_sec": 273.6,
-          "explanation": "Evidence for road spill or debris peaks at 158s, +1.344 above this camera's own rolling baseline, and stays raised for 123s across 232 sampled frames: material is scattered across the road surface and vehicles steer around it. The prompt bank ranks waterlogging or flood slightly higher here, so the timing is firmer than the label."
+          "explanation": "Evidence for road spill or debris peaks at 158s, +1.344 above this camera's own rolling baseline, and stays raised for 123s across 232 sampled frames: material is scattered across the road surface and vehicles steer around it. Margin over waterlogging or flood is thin (-0.482), so the class is the less certain part."
         }
       ],
       "runtime_metadata": {
         "frames_processed": 662,
         "chunks_processed": 20,
-        "end_to_end_internal_time_ms": 5923.3,
+        "end_to_end_internal_time_ms": 6408.0,
         "model_runtimes": [
           {
             "model_name": "vision-encoder",
             "call_count": 1,
-            "total_time_ms": 8.9,
-            "average_time_ms": 8.9,
-            "p50_time_ms": 8.9,
-            "p95_time_ms": 8.9,
-            "max_time_ms": 8.9
+            "total_time_ms": 9.7,
+            "average_time_ms": 9.7,
+            "p50_time_ms": 9.7,
+            "p95_time_ms": 9.7,
+            "max_time_ms": 9.7
           }
         ]
       }
